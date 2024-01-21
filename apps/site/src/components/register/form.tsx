@@ -17,6 +17,13 @@ const RegisterForm = () => {
         // For simplicity, let's set otpSent to true immediately
         setOtpSent(true);
     };
+    const designTypeTools = {
+        GD: ['Tool1', 'Tool2', 'Tool3'],
+        '3D': ['ToolA', 'ToolB', 'ToolC'],
+        Illustrator: ['ToolX', 'ToolY', 'ToolZ'],
+        UI: ['ToolUI1', 'ToolUI2', 'ToolUI3'],
+    };
+    
     const verifyOtpHandler = (otp: string) => {
         // Implement logic to verify the entered OTP
         // For simplicity, let's manually set otpVerified to true if the entered OTP is 1234
@@ -153,12 +160,12 @@ const RegisterForm = () => {
     return (
         <div className="max-w-md mx-auto shadow px-8 py-10 rounded-lg bg-white">
             <div className="mb-6 text-center">
-                <h3 className="mb-4 text-2xl text-themeDarker">
+            <h3 className="mb-4 text-2xl text-themeDarker">
                     {CurrentPage === 1
                         ? 'Create an Account'
                         : CurrentPage === 2
                         ? 'Personal Information'
-                        : 'Phone Verification'}
+                        : 'Let Us Get To Know You Better'}
                 </h3>
             </div>
             {/* ... */}
@@ -557,134 +564,156 @@ const RegisterForm = () => {
                 )}
 
 
-                <div className="flex gap-4">
-                    {CurrentPage === 2 && (
-                        <button
-                            onClick={previousHandler}
-                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                        >
-                            Previous
-                        </button>
-                    )}
-                    <button
-                                type="submit"
-                                disabled={loading}
-                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                            >
-                                {loading ? 'Please wait...' : 'Submit'}
-                            </button>
-                            </div>
-                            {CurrentPage === 3 && (
-                    <>
+{CurrentPage === 3 && (
+                    
                         <div className="mb-6">
-                            <h4 className="text-lg font-semibold text-themeDarker mb-4">
-                                What Kind of Designing Are You Looking For?
-                            </h4>
-                            <div className="flex flex-col">
-                                <input
-                                    type="radio"
-                                    id="designing-gd"
-                                    defaultValue="GD"
-                                    {...register('designingType')}
-                                    className="hidden"
-                                />
-                                <label
-                                    htmlFor="designing-gd"
-                                    className="mb-2 cursor-pointer"
-                                >
-                                    <input
-                                        type="radio"
-                                        id="designing-gd"
-                                        defaultValue="GD"
-                                        {...register('designingType')}
-                                        className="mr-2 cursor-pointer"
-                                    />
-                                    Graphic Design (GD)
-                                </label>
+        <h3 className="text-lg font-semibold mb-4">
+            What Kind of Designing Are You Looking For?
+        </h3>
+        <div className="flex flex-col gap-2">
+            <input
+                type="radio"
+                id="gd"
+                value="GD"
+                {...register('designType')}
+                className="hidden"
+            />
+            <label
+                htmlFor="gd"
+                className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                    watch('designType') === 'GD' ? 'bg-themePrimary text-white' : ''
+                }`}
+            >
+                GD
+            </label>
 
-                                <input
-                                    type="radio"
-                                    id="designing-3d"
-                                    defaultValue="3D"
-                                    {...register('designingType')}
-                                    className="hidden"
-                                />
-                                <label
-                                    htmlFor="designing-3d"
-                                    className="mb-2 cursor-pointer"
-                                >
-                                    <input
-                                        type="radio"
-                                        id="designing-3d"
-                                        defaultValue="3D"
-                                        {...register('designingType')}
-                                        className="mr-2 cursor-pointer"
-                                    />
-                                    3D Design
-                                </label>
+            <input
+                type="radio"
+                id="3d"
+                value="3D"
+                {...register('designType')}
+                className="hidden"
+            />
+            <label
+                htmlFor="3d"
+                className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                    watch('designType') === '3D' ? 'bg-themePrimary text-white' : ''
+                }`}
+            >
+                3D
+            </label>
 
-                                <input
-                                    type="radio"
-                                    id="designing-illustrator"
-                                    defaultValue="Illustrator"
-                                    {...register('designingType')}
-                                    className="hidden"
-                                />
-                                <label
-                                    htmlFor="designing-illustrator"
-                                    className="mb-2 cursor-pointer"
-                                >
-                                    <input
-                                        type="radio"
-                                        id="designing-illustrator"
-                                        defaultValue="Illustrator"
-                                        {...register('designingType')}
-                                        className="mr-2 cursor-pointer"
-                                    />
-                                    Illustrator
-                                </label>
+            <input
+                type="radio"
+                id="illustrator"
+                value="Illustrator"
+                {...register('designType')}
+                className="hidden"
+            />
+            <label
+                htmlFor="illustrator"
+                className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                    watch('designType') === 'Illustrator' ? 'bg-themePrimary text-white' : ''
+                }`}
+            >
+                Illustrator
+            </label>
 
-                                <input
-                                    type="radio"
-                                    id="designing-ui"
-                                    defaultValue="UI"
-                                    {...register('designingType')}
-                                    className="hidden"
-                                />
-                                <label
-                                    htmlFor="designing-ui"
-                                    className="cursor-pointer"
-                                >
-                                    <input
-                                        type="radio"
-                                        id="designing-ui"
-                                        defaultValue="UI"
-                                        {...register('designingType')}
-                                        className="mr-2 cursor-pointer"
-                                    />
-                                    UI Design
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div className="flex gap-4">
-                            <button
-                                type="button"
-                                onClick={() => setCurrentPage(2)}
-                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                            >
-                                Previous
-                            </button>
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                            >
-                                {loading ? 'Please wait...' : 'Submit'}
-                            </button>
-                        </div>
-                    </>
-                )}
+            <input
+                type="radio"
+                id="ui"
+                value="UI"
+                {...register('designType')}
+                className="hidden"
+            />
+            <label
+                htmlFor="ui"
+                className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                    watch('designType') === 'UI' ? 'bg-themePrimary text-white' : ''
+                }`}
+            >
+                UI
+            </label>
+        </div>
+    </div>
+                   )}
+
+                  {CurrentPage === 1 && (
+                <div className="flex gap-4">
+                    <button
+                        onClick={() => setCurrentPage(2)}
+                        className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                    >
+                        Next Step
+                    </button>
+                </div>
+            )}
+
+            {CurrentPage === 2 && (
+                <div className="flex gap-4">
+                    <button
+                        onClick={() => setCurrentPage(3)}
+                        className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                    >
+                        Next Step
+                    </button>
+                    <button
+                        onClick={previousHandler}
+                        className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                    >
+                        Previous
+                    </button>
+                </div>
+            )}
+
+            {CurrentPage === 3 && (
+                
+               <div className="flex gap-4">
+               <button
+                   onClick={() => setCurrentPage(4)} // Step 3: Update to navigate to section 4
+                   className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+               >
+                   Next Step
+               </button>
+               <button
+                   onClick={previousHandler}
+                   className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+               >
+                   Previous
+               </button>
+           </div>
+      
+)}
+ {CurrentPage === 4 && (
+    <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-4">Select Tools</h3>
+        <div className="flex flex-col gap-2">
+            {designTypeTools[watch('designType')] &&
+                designTypeTools[watch('designType')].map((tool, index) => (
+                    <div key={index}>
+                        <input
+                            type="checkbox"
+                            id={`tool-${index}`}
+                            value={tool}
+                            {...register('selectedTools')}
+                        />
+                        <label htmlFor={`tool-${index}`} className="ml-2">
+                            {tool}
+                        </label>
+                    </div>
+                ))}
+            <div className="mt-4">
+                <label className="block mb-2 text-themeDarker">Or type your own tools:</label>
+                <input
+                    type="text"
+                    {...register('customTools')}
+                    className="border rounded p-2"
+                    placeholder="Type your tools here"
+                />
+            </div>
+        </div>
+    </div>
+)}
                 <p className="text-center">
                     <span className="text-xss1 text-deep">
                         Already have an account?
