@@ -38,7 +38,8 @@ const RegisterForm = () => {
     ];
 
     const [selectedState, setSelectedState] = React.useState('');
-    const [availableLocations, setAvailableLocations] = React.useState([]);
+    
+    const [availableLocations, setAvailableLocations] = React.useState<string[]>([]);
 
     React.useEffect(() => {
         // Filter locations based on the selected state
