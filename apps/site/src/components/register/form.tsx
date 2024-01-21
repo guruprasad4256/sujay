@@ -120,46 +120,45 @@ const form = () => {
 };
     
  
-    
-    <div className="mb-6">
-      <div className="flex gap-6">
-        <div className="w-1/2">
-          <label className="block mb-2 text-themeDarker" htmlFor="">
-            First Name
-          </label>
-          <input
-            className={`appearance-none block w-full !p-2 leading-5 text-coolGray-900 border ${
-              errors?.first_name ? '!border-red-500' : 'border-gray'
-            } rounded-lg placeholder-coolGray-400 focus:outline-none`}
-            type="name"
-            {...register('first_name', { required: true })}
-          />
-          {errors?.first_name && (
-            <span className="text-red-600 text-xss italic">
-              This field is required
-            </span>
-          )}
-        </div>
-        <div className="w-1/2">
-          <label className="block mb-2 text-themeDarker" htmlFor="">
-            Last Name
-          </label>
-          <input
-            className={`appearance-none block w-full !p-2 leading-5 text-coolGray-900 border ${
-              errors?.last_name ? '!border-red-500' : 'border-gray'
-            } rounded-lg placeholder-coolGray-400 focus:outline-none`}
-            type="name"
-            {...register('last_name', { required: true })}
-          />
-          {errors?.last_name && (
-            <span className="text-red-600 text-xss italic">
-              This field is required
-            </span>
-          )}
-        </div>
-      </div>
-    </div>
-
+<div className="mb-6">
+<div className="flex gap-6">
+  <div className="w-1/2">
+    <label className="block mb-2 text-themeDarker" htmlFor="">
+      First Name
+    </label>
+    <input
+      className={`appearance-none block w-full !p-2 leading-5 text-coolGray-900 border ${
+        errors?.first_name ? '!border-red-500' : 'border-gray'
+      } rounded-lg placeholder-coolGray-400 focus:outline-none`}
+      type="text"
+      {...register('first_name', { required: true })}
+    />
+    {errors?.first_name && (
+      <span className="text-red-600 text-xss italic">
+        This field is required
+      </span>
+    )}
+  </div>
+  <div className="w-1/2">
+    <label className="block mb-2 text-themeDarker" htmlFor="">
+      Last Name
+    </label>
+    <input
+      className={`appearance-none block w-full !p-2 leading-5 text-coolGray-900 border ${
+        errors?.last_name ? '!border-red-500' : 'border-gray'
+      } rounded-lg placeholder-coolGray-400 focus:outline-none`}
+      type="text"
+      {...register('last_name', { required: true })}
+    />
+    {errors?.last_name && (
+      <span className="text-red-600 text-xss italic">
+        This field is required
+      </span>
+    )}
+  </div>
+</div>
+</div>
+</div>
     <div className="mb-6">
       <div className="flex gap-6">
         <div className="w-1/2">
