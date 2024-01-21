@@ -93,118 +93,105 @@ const RegisterForm = () => {
 
     return (
         <div className="max-w-md mx-auto shadow px-8 py-10 rounded-lg bg-white">
-            <div className="mb-6 text-center">
-                <h3 className="mb-4 text-2xl text-themeDarker">
-                    {CurrentPage === 1
-                        ? 'Create an Account'
-                        : 'Password Confirmation'}
-                </h3>
-            </div>
+            {/* ... */}
             <form onSubmit={handleSubmit(onSubmitHandler)}>
                 {CurrentPage === 1 && (
                     <>
-                        <div className="flex gap-6 pt-2 pb-8 w-full">
-                            <div className="w-6/12 checked:bg-themePrimary text-[#fff]">
-                                <input
-                                    type="radio"
-                                    id="freelancer-radio"
-                                    defaultValue="candidate"
-                                    className="hidden absolute"
-                                    {...register('freelancer_role')}
-                                    defaultChecked
-                                />
-                                <label
-                                    htmlFor="freelancer-radio"
-                                    className="bg-themePrimary/20 w-full text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded"
-                                >
-                                    Candidate
-                                </label>
-                            </div>
-                            <div className="w-6/12 checked:bg-themePrimary text-[#fff]">
-                                <input
-                                    type="radio"
-                                    id="employer-radio"
-                                    defaultValue="employer"
-                                    {...register('freelancer_role')}
-                                    className="hidden absolute"
-                                />
-                                <label
-                                    htmlFor="employer-radio"
-                                    className="bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 w-full text-center cursor-pointer rounded"
-                                >
-                                    Employer
-                                </label>
-                            </div>
-                        </div>
                         <div className="mb-6">
-                            <label
-                                className="block mb-2 text-themeDarker"
-                                htmlFor=""
-                            >
-                                First Name
+                            <label className="block mb-2 text-themeDarker">
+                                Full Name
                             </label>
-                            <input
-                                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
-                                    errors?.first_name
-                                        ? '!border-red-500'
-                                        : 'border-gray'
-                                } rounded-lg placeholder-coolGray-400 focus:outline-none `}
-                                type="name"
-                                {...register('first_name', { required: true })}
-                                placeholder="Enter Your First Name"
-                            />
+                            <div className="flex gap-6">
+                                <input
+                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
+                                        errors?.first_name
+                                            ? '!border-red-500'
+                                            : 'border-gray'
+                                    } rounded-lg placeholder-coolGray-400 focus:outline-none `}
+                                    type="name"
+                                    {...register('first_name', {
+                                        required: true,
+                                    })}
+                                    placeholder="First Name"
+                                />
+                                <input
+                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
+                                        errors?.last_name
+                                            ? '!border-red-500'
+                                            : 'border-gray'
+                                    } rounded-lg placeholder-coolGray-400 focus:outline-none `}
+                                    type="name"
+                                    {...register('last_name', {
+                                        required: true,
+                                    })}
+                                    placeholder="Last Name"
+                                />
+                            </div>
                             {errors?.first_name && (
                                 <span className="text-red-600 text-xss italic">
-                                    This field is required
+                                    First name is required
                                 </span>
                             )}
-                        </div>
-                        <div className="mb-6">
-                            <label
-                                className="block mb-2 text-themeDarker"
-                                htmlFor=""
-                            >
-                                Last Name
-                            </label>
-                            <input
-                                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
-                                    errors?.last_name
-                                        ? '!border-red-500'
-                                        : 'border-gray'
-                                } rounded-lg placeholder-coolGray-400 focus:outline-none `}
-                                type="name"
-                                {...register('last_name', { required: true })}
-                                placeholder="Enter Your Last Name"
-                            />
                             {errors?.last_name && (
                                 <span className="text-red-600 text-xss italic">
-                                    This field is required
+                                    Last name is required
                                 </span>
                             )}
                         </div>
                         <div className="mb-6">
-                            <label
-                                className="block mb-2 text-themeDarker"
-                                htmlFor=""
-                            >
-                                Email
+                            <label className="block mb-2 text-themeDarker">
+                                Email and Phone Number
                             </label>
-                            <input
-                                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
-                                    errors?.email
-                                        ? '!border-red-500'
-                                        : 'border-gray'
-                                } focus:ring-themePrimary focus:ring-opacity-50`}
-                                type="name"
-                                {...register('email', { required: true })}
-                                placeholder="Enter Your Email"
-                            />
-                            {errors?.email && (
-                                <span className="text-red-600 text-xss italic">
-                                    This field is required
-                                </span>
-                            )}
+                            <div className="flex gap-6">
+                                <input
+                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
+                                        errors?.email
+                                            ? '!border-red-500'
+                                            : 'border-gray'
+                                    } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                        errors?.email
+                                            ? 'ring-red-500'
+                                            : 'focus:ring-themePrimary focus:ring-opacity-50'
+                                    }`}
+                                    type="email"
+                                    {...register('email', { required: true })}
+                                    placeholder="Enter Your Email"
+                                />
+                                <input
+                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
+                                        errors?.phone_number
+                                            ? '!border-red-500'
+                                            : 'border-gray'
+                                    } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                        errors?.phone_number
+                                            ? 'ring-red-500'
+                                            : 'focus:ring-themePrimary focus:ring-opacity-50'
+                                    }`}
+                                    type="tel"
+                                    {...register('phone_number', {
+                                        required: true,
+                                    })}
+                                    placeholder="Enter Your Phone Number"
+                                />
+                            </div>
+                            <div className="flex">
+                                <div className="w-1/2">
+                                    {errors?.email && (
+                                        <span className="text-red-600 text-xss italic">
+                                            Email is required
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="w-1/2">
+                                    {errors?.phone_number && (
+                                        <span className="text-red-600 text-xss italic">
+                                            Phone number is required
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
                         </div>
+                        {/* ... (remaining code) */}
                     </>
                 )}
 
