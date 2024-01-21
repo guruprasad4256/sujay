@@ -1,0 +1,469 @@
+
+.processSteps {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.processStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepNumber {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  background-color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.stepFill {
+  animation: fill 0.5s forwards;
+}
+
+@keyframes fill {
+  to {
+    background-color: #007bff; /* Change this to your desired fill color */
+  }
+}
+
+.stepName {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.active .stepNumber {
+  border-color: #007bff; /* Change this to your desired active color */
+}
+
+.active .stepName {
+  color: #333;
+}
+/* RegisterForm.module.css */
+
+.processSteps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.processStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.stepNumber {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  background-color: #fff;
+  margin-bottom: 0.25rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.stepBar {
+  flex: 1;
+  height: 4px;
+  background-color: #ddd;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.stepName {
+  font-size: 0.75rem;
+  color: #666;
+  transition: color 0.3s ease-in-out;
+}
+
+.active .stepNumber,
+.active .stepBar {
+  background-color: #007bff; /* Change this to your desired active color */
+}
+
+.active .stepName {
+  color: #333;
+}
+
+.stepFill {
+  animation: fill 0.5s forwards;
+}
+
+@keyframes fill {
+  to {
+    background-color: #007bff; /* Change this to your desired fill color */
+  }
+}
+/* RegisterForm.module.css */
+
+.processSteps {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.processStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepNumber {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  background-color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.stepFill {
+  animation: fill 0.5s forwards;
+}
+
+@keyframes fill {
+  to {
+    background-color: #007bff; /* Change this to your desired fill color */
+  }
+}
+
+.stepName {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.active .stepNumber {
+  border-color: #007bff; /* Change this to your desired active color */
+}
+
+.active .stepName {
+  color: #333;
+}
+
+
+.processStepsContainer {
+  position: relative;
+}
+
+.progressBar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 4px;
+  width: 50%; /* Adjust the width of the progress bar */
+  background-color: #ddd; /* Default color of the progress bar */
+  z-index: -1;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress0 {
+  width: 0;
+}
+
+.progress1 {
+  width: 50%; /* Adjust the width based on the number of steps */
+}
+
+.progress2 {
+  width: 100%; /* Full width for the last step */
+}
+
+.processSteps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.processStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepNumber {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  background-color: #fff;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.stepName {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.active .stepNumber {
+  border-color: #007bff; /* Change this to your desired active color */
+  background-color: #007bff; /* Change this to your desired active color */
+  color: #fff;
+}
+/* RegisterForm.module.css */
+.scrollingSection {
+  background-color: #f8f8f8;
+  padding: 10px;
+  text-align: center;
+}
+
+.fixedSection {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 400px; /* Adjust the width as needed */
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.registerFormContainer {
+  max-width: 300px; /* Adjust the max-width as needed */
+  width: 100%;
+}
+
+/* Add more styles as needed */
+/* RegisterForm.module.css */
+
+.autoScrollContainer {
+  height: auto; /* Adjust the height as needed */
+  overflow-y: auto;
+ 
+}
+
+.autoScrollSection {
+  padding: 20px;
+}
+
+.registrationSection {
+  padding: 10px;
+  width: 1200px; /* Adjust the width as needed */
+  margin: 0 auto;
+}
+
+/* Add any other styles based on your design preferences */
+/* RegisterForm.module.css */
+
+.registerPage {
+  display: flex;
+}
+
+.autoScrollContainer {
+  flex: 1;
+  height: 100vh; /* Adjust the height as needed */
+  overflow-y: auto;
+ 
+}
+
+.autoScrollSection {
+  padding: 20px;
+}
+
+.registrationSection {
+  flex: 1;
+  padding: 20px;
+  max-width: 1000px; /* Adjust the max-width as needed */
+  margin: 0 auto;
+}
+
+/* Add any other styles based on your design preferences */
+.registerPage {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.autoScrollContainer {
+  flex: 1;
+  overflow-y: scroll;
+  animation: scrollAnimation 30s linear infinite;
+}
+
+.scrolling-content {
+  padding: 20px;
+}
+
+@keyframes scrollAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.registrationSection {
+  flex: 1;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+.scrollingContent {
+  padding: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.scrollImages {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.scrollImages img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.horizontalBoxes {
+  display: flex;
+  gap: 20px;
+}
+
+.box {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.box h3 {
+  font-weight: bold;
+}
+.scrollingContent {
+  padding: 20px;
+  max-height: auto; /* Set a max height for manual scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.scrollImages {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.scrollImages img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.horizontalBoxes {
+  display: flex;
+  gap: 20px;
+}
+
+.box {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.box h3 {
+  font-weight: bold;
+}
+/* RegisterForm.module.css */
+
+.scrollingContent {
+  padding: 20px;
+  max-height: auto; /* Set a max height for manual scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.scrollImages {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.scrollImages img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.horizontalBoxes {
+  display: flex;
+  gap: 20px;
+}
+
+/* AutoScrollSection.module.css */
+
+.autoScrollContainer {
+  flex: 1;
+  overflow-y: scroll;
+  animation: scrollAnimation 30s linear infinite;
+}
+
+@keyframes scrollAnimation {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+/* RegisterForm.module.css */
+
+/* RegisterForm.module.css */
+
+/* Styles for h2 with a specific class */
+.heading2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  /* Add other styles as needed */
+}
+
+/* Styles for h5 with a specific class */
+.heading5 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  /* Add other styles as needed */
+}
+/* RegisterForm.module.css */
+.color{
+  color:green;
+  font-size: 25px;
+  font-weight: bold;
+
+}
+.py-24 {
+  padding-top: rem;
+  padding-bottom: rem;
+}
