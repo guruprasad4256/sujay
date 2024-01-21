@@ -17,17 +17,25 @@ const RegisterForm = () => {
         // For simplicity, let's set otpSent to true immediately
         setOtpSent(true);
     };
-
-    const verifyOtpHandler = (otp) => {
+    const verifyOtpHandler = (otp: string) => {
         // Implement logic to verify the entered OTP
         // For simplicity, let's manually set otpVerified to true if the entered OTP is 1234
         if (otp === '1234') {
             setOtpVerified(true);
+            addToast('OTP successfully verified!', {
+                appearance: 'success',
+                autoDismiss: true,
+            });
         } else {
             // You can handle the case when the OTP is incorrect
             setOtpVerified(false);
+            addToast('Invalid OTP. Please try again.', {
+                appearance: 'error',
+                autoDismiss: true,
+            });
         }
     };
+
 
     const {
         register,
@@ -144,6 +152,15 @@ const RegisterForm = () => {
 
     return (
         <div className="max-w-md mx-auto shadow px-8 py-10 rounded-lg bg-white">
+            <div className="mb-6 text-center">
+                <h3 className="mb-4 text-2xl text-themeDarker">
+                    {CurrentPage === 1
+                        ? 'Create an Account'
+                        : CurrentPage === 2
+                        ? 'Personal Information'
+                        : 'Phone Verification'}
+                </h3>
+            </div>
             {/* ... */}
             <form onSubmit={handleSubmit(onSubmitHandler)}>
                 {CurrentPage === 1 && (
@@ -259,29 +276,34 @@ const RegisterForm = () => {
                                         </span>
                                     )}
                                 </div>
-                                <div className="w-6/12">
-                                    <label className="block mb-2 text-themeDarker text-sm">
-                                        Phone Number
-                                    </label>
-                                    <input
-                                        className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
-                                            errors?.phone_number
-                                                ? '!border-red-500'
-                                                : 'border-gray'
-                                        } focus:ring-themePrimary focus:ring-opacity-50 text-sm`}
-                                        type="tel"
-                                        {...register('phone_number', {
-                                            required: true,
-                                        })}
-                                        placeholder="Enter Your Phone Number"
-                                    />
-                                    {errors?.phone_number && (
-                                        <span className="text-red-600 text-xss italic">
-                                            Phone number is required
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
+                                <div className="mb-6">
+                            <label
+                                className="block mb-2 text-themeDarker"
+                                htmlFor="email"
+                            >
+                                Email
+                            </label>
+                            <input
+                                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
+                                    errors?.email
+                                        ? '!border-red-500'
+                                        : 'border-gray'
+                                } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                    errors?.email
+                                        ? 'focus:ring-red-500'
+                                        : 'focus:ring-themePrimary'
+                                } focus:ring-opacity-50`}
+                                type="email"
+                                {...register('email', { required: true })}
+                                placeholder="Enter Your Email"
+                            />
+                            {errors?.email && (
+                                <span className="text-red-600 text-xss italic">
+                                    Please enter a valid email
+                                </span>
+                            )}
+                        </div>
+                        </div>
                         
                                
                         <div className="mb-6">
@@ -421,115 +443,119 @@ const RegisterForm = () => {
                      {/* ... (remaining code) */}
                 
                      <div className="mb-6">
-                    <div className="flex gap-2 items-center">
-                        <input
-                            type="checkbox"
-                            id="agree-checkbox"
-                            {...register('agree', { required: true })}
-                            className="hidden absolute"
-                        />
-                        <label
-                            htmlFor="agree-checkbox"
-                            className={`text-coolGray-600 text-sm cursor-pointer ${
-                                watch('agree') ? 'relative' : ''
-                            }`}
-                        >
-                            <span className={`inline-block w-4 h-4 border rounded-md mr-2 ${watch('agree') ? 'border-themePrimary' : 'border-coolGray-400'}`}></span>
-                            {watch('agree') && (
-                                <span className="absolute top-0 left-0 mt-1 ml-0.5 text-themePrimary">&#10003;</span>
+                            <input
+                                type="checkbox"
+                                id="agree"
+                                {...register('agree', { required: true })}
+                                className="mr-2"
+                            />
+                            <label htmlFor="agree" className="text-xss1">
+                                I agree to the{' '}
+                                <Link href="/terms">
+                                    <a className="text-themePrimary hover:underline">
+                                        Terms of Service
+                                    </a>
+                                </Link>{' '}
+                                &{' '}
+                                <Link href="/privacy">
+                                    <a className="text-themePrimary hover:underline">
+                                        Privacy Policy
+                                    </a>
+                                </Link>
+                            </label>
+                            {errors?.agree && (
+                                <span className="text-red-600 text-xss italic">
+                                    You must agree to the Terms of Service and Privacy Policy
+                                </span>
                             )}
-                            I agree to the{' '}
-                            <Link href="/terms-of-service">
-                                <a className="text-themePrimary hover:underline">
-                                    Terms of Service
-                                </a>
-                            </Link>{' '}
-                            &{' '}
-                            <Link href="/privacy-policy">
-                                <a className="text-themePrimary hover:underline">
-                                    Privacy Policy
-                                </a>
-                            </Link>
-                        </label>
-                    </div>
-                    {errors?.agree && (
-                        <span className="text-red-600 text-xss italic">
-                            Please agree to the terms and privacy policy
-                        </span>
-                    )}
-                </div>
+                        </div>
 
                 {CurrentPage === 2 && (
                     <>
                         <div className="mb-6">
                             <label
                                 className="block mb-2 text-themeDarker"
-                                htmlFor=""
+                                htmlFor="phone_number"
                             >
-                                Password
+                                Phone Number
                             </label>
                             <input
                                 className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
-                                    errors?.password
+                                    errors?.phone_number
                                         ? '!border-red-500'
                                         : 'border-gray'
-                                } rounded-lg placeholder-coolGray-400 focus:outline-none `}
-                                type="password"
-                                {...register('password', {
-                                    required: {
-                                        value: true,
-                                        message: 'This field is required',
-                                    },
-                                    minLength: {
-                                        value: 8,
-                                        message:
-                                            'Password must be at least 8 characters',
-                                    },
+                                } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                    errors?.phone_number
+                                        ? 'focus:ring-red-500'
+                                        : 'focus:ring-themePrimary'
+                                } focus:ring-opacity-50`}
+                                type="tel"
+                                {...register('phone_number', {
+                                    required: true,
+                                    pattern: /^\d{10}$/ // Adjust the pattern for your phone number format
                                 })}
-                                placeholder="Enter Password"
+                                placeholder="Enter Your Phone Number"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
                             />
-                            {errors?.password && (
+                            {errors?.phone_number && (
                                 <span className="text-red-600 text-xss italic">
-                                    {errors?.password?.message}
+                                    Please enter a valid phone number
                                 </span>
                             )}
                         </div>
-                        <div className="mb-4">
-                            <label
-                                className="block mb-2 text-themeDarker"
-                                htmlFor=""
+                        {!otpSent ? (
+                            <button
+                                type="button"
+                                onClick={sendOtpHandler}
+                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
                             >
-                                Confirm Password
-                            </label>
-                            <input
-                                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
-                                    errors?.confirm_password
-                                        ? '!border-red-500'
-                                        : 'border-gray'
-                                } rounded-lg placeholder-coolGray-400 focus:outline-none `}
-                                type="password"
-                                {...register('confirm_password', {
-                                    required: {
-                                        value: true,
-                                        message: 'This field is required',
-                                    },
-                                    validate: (value) => {
-                                        return (
-                                            value === watch('password') ||
-                                            'Passwords do not match'
-                                        );
-                                    },
-                                })}
-                                placeholder="Enter Confirm Password"
-                            />
-                            {errors?.confirm_password && (
-                                <span className="text-red-600 text-xss italic">
-                                    {errors?.confirm_password?.message}
-                                </span>
-                            )}
-                        </div>
+                                Send OTP
+                            </button>
+                        ) : (
+                            <>
+                                <div className="mb-6">
+                                    <label
+                                        className="block mb-2 text-themeDarker"
+                                        htmlFor="otp"
+                                    >
+                                        OTP
+                                    </label>
+                                    <input
+                                        className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
+                                            errors?.otp
+                                                ? '!border-red-500'
+                                                : 'border-gray'
+                                        } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                            errors?.otp
+                                                ? 'focus:ring-red-500'
+                                                : 'focus:ring-themePrimary'
+                                        } focus:ring-opacity-50`}
+                                        type="text"
+                                        {...register('otp', {
+                                            required: true,
+                                            pattern: /^\d{4}$/ // Adjust the pattern for your OTP format
+                                        })}
+                                        placeholder="Enter OTP"
+                                    />
+                                    {errors?.otp && (
+                                        <span className="text-red-600 text-xss italic">
+                                            Please enter a valid OTP
+                                        </span>
+                                    )}
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => verifyOtpHandler(watch('otp'))}
+                                    className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                                >
+                                    Verify OTP
+                                </button>
+                            </>
+                        )}
                     </>
                 )}
+
 
                 <div className="flex gap-4">
                     {CurrentPage === 2 && (
