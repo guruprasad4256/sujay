@@ -567,17 +567,124 @@ const RegisterForm = () => {
                         </button>
                     )}
                     <button
-                        type="submit"
-                        disabled={loading}
-                        className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                    >
-                        {CurrentPage === 1 ? (
-                            'Next'
-                        ) : (
-                            <>{loading ? 'Please wait...' : 'Sign Up'}</>
-                        )}
-                    </button>
-                </div>
+                                type="submit"
+                                disabled={loading}
+                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                            >
+                                {loading ? 'Please wait...' : 'Submit'}
+                            </button>
+                            </div>
+                            {CurrentPage === 3 && (
+                    <>
+                        <div className="mb-6">
+                            <h4 className="text-lg font-semibold text-themeDarker mb-4">
+                                What Kind of Designing Are You Looking For?
+                            </h4>
+                            <div className="flex flex-col">
+                                <input
+                                    type="radio"
+                                    id="designing-gd"
+                                    defaultValue="GD"
+                                    {...register('designingType')}
+                                    className="hidden"
+                                />
+                                <label
+                                    htmlFor="designing-gd"
+                                    className="mb-2 cursor-pointer"
+                                >
+                                    <input
+                                        type="radio"
+                                        id="designing-gd"
+                                        defaultValue="GD"
+                                        {...register('designingType')}
+                                        className="mr-2 cursor-pointer"
+                                    />
+                                    Graphic Design (GD)
+                                </label>
+
+                                <input
+                                    type="radio"
+                                    id="designing-3d"
+                                    defaultValue="3D"
+                                    {...register('designingType')}
+                                    className="hidden"
+                                />
+                                <label
+                                    htmlFor="designing-3d"
+                                    className="mb-2 cursor-pointer"
+                                >
+                                    <input
+                                        type="radio"
+                                        id="designing-3d"
+                                        defaultValue="3D"
+                                        {...register('designingType')}
+                                        className="mr-2 cursor-pointer"
+                                    />
+                                    3D Design
+                                </label>
+
+                                <input
+                                    type="radio"
+                                    id="designing-illustrator"
+                                    defaultValue="Illustrator"
+                                    {...register('designingType')}
+                                    className="hidden"
+                                />
+                                <label
+                                    htmlFor="designing-illustrator"
+                                    className="mb-2 cursor-pointer"
+                                >
+                                    <input
+                                        type="radio"
+                                        id="designing-illustrator"
+                                        defaultValue="Illustrator"
+                                        {...register('designingType')}
+                                        className="mr-2 cursor-pointer"
+                                    />
+                                    Illustrator
+                                </label>
+
+                                <input
+                                    type="radio"
+                                    id="designing-ui"
+                                    defaultValue="UI"
+                                    {...register('designingType')}
+                                    className="hidden"
+                                />
+                                <label
+                                    htmlFor="designing-ui"
+                                    className="cursor-pointer"
+                                >
+                                    <input
+                                        type="radio"
+                                        id="designing-ui"
+                                        defaultValue="UI"
+                                        {...register('designingType')}
+                                        className="mr-2 cursor-pointer"
+                                    />
+                                    UI Design
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div className="flex gap-4">
+                            <button
+                                type="button"
+                                onClick={() => setCurrentPage(2)}
+                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                            >
+                                Previous
+                            </button>
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                            >
+                                {loading ? 'Please wait...' : 'Submit'}
+                            </button>
+                        </div>
+                    </>
+                )}
                 <p className="text-center">
                     <span className="text-xss1 text-deep">
                         Already have an account?
