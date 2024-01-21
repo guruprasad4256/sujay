@@ -688,8 +688,8 @@ const RegisterForm = () => {
     <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Select Tools</h3>
         <div className="flex flex-col gap-2">
-            {designTypeTools[watch('designType')] &&
-                designTypeTools[watch('designType')].map((tool, index) => (
+            {designTypeTools[watch('designType') as keyof typeof designTypeTools] &&
+                designTypeTools[watch('designType') as keyof typeof designTypeTools].map((tool, index) => (
                     <div key={index}>
                         <input
                             type="checkbox"
@@ -714,6 +714,7 @@ const RegisterForm = () => {
         </div>
     </div>
 )}
+
                 <p className="text-center">
                     <span className="text-xss1 text-deep">
                         Already have an account?
