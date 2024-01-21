@@ -2,25 +2,39 @@ import apiConnector from '@metajob/api-connector';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-    const connect = await apiConnector;
-    // connect to database
-    await connect.connectDB();
+    let connect; // Declare the variable outside the try block
 
-    switch (req.method) {
-        case 'GET':
-            try {
+    try {
+        connect = await apiConnector;
+        // Connect to the database
+        await connect.connectDB();
+
+        switch (req.method) {
+            case 'GET':
+                // Fetch categories
                 const categories = await connect.getCategories();
 
-                res.status(200).send({
+                // Send successful response
+                res.status(200).json({
                     message: 'Successfully fetched all categories',
                     data: categories,
                 });
-            } catch (e: any) {
-                res.status(500).send({
-                    message: e.message,
-                    error: 'Server Error',
-                });
-            }
-            break;
+                break;
+
+            default:
+                res.status(405).json({ error: 'Method Not Allowed' });
+        }
+    } catch (error: any) {
+        console.error('Error:', error);
+        res.status(500).json({
+            message: 'Internal Server Error',
+            error: (error as Error).message, // Type assertion
+        });
+    } finally {
+        // Check if connect is defined before attempting to disconnect
+        if (connect) {
+            // Close the database connection
+            await connect.disconnectDB();
+        }
     }
 }
