@@ -3,8 +3,9 @@ import React from "react";
 import Layout from "../src/components/frontend/layout";
 import useUser, { UserLogin } from "../src/components/lib/user";
 import RegisterForm from "../src/components/register/register-form";
-import styles from '../RegisterForm.module.css'; 
+
 export default function SignUp() {
+  
   const { loggedIn, loggedOut } = useUser();
   if (loggedIn) return <UserLogin />;
 
@@ -17,7 +18,7 @@ export default function SignUp() {
 
         <Layout>
           <main>
-            <section className="  bg-light">
+            <section className="py-24 md:py-32 bg-light">
               <RegisterForm />
             </section>
           </main>
