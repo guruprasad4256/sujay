@@ -88,33 +88,36 @@ const form = () => {
         if (CurrentPage === 2) {
             setCurrentPage(1);
         }
-    };    return (
-      <div className={`max-w-md mx-auto shadow px-8 py-10 rounded-lg bg-white relative ${styles.registerForm}`}>
-      {/* Process Steps with Progress Bar */}
-      <div className={`relative ${styles.processStepsContainer}`}>
-          <div className={`${styles.progressBar} ${styles[`progress${CurrentPage - 1}`]}`} />
-          <div className={`${styles.processSteps}`}>
-              <div className={`${styles.processStep} ${CurrentPage === 1 ? styles.active : ''}`}>
-                  <div className={`${styles.stepNumber}`}>1</div>
-                  <div className={`${styles.stepName}`}>Step 1</div>
+    };     return (
+      <div>
+          <div className={`max-w-md mx-auto shadow px-8 py-10 rounded-lg bg-white relative ${styles.registerForm}`}>
+              {/* Process Steps with Progress Bar */}
+              <div className={`relative ${styles.processStepsContainer}`}>
+                  <div className={`${styles.progressBar} ${styles[`progress${CurrentPage - 1}`]}`} />
+                  <div className={`${styles.processSteps}`}>
+                      <div className={`${styles.processStep} ${CurrentPage === 1 ? styles.active : ''}`}>
+                          <div className={`${styles.stepNumber}`}>1</div>
+                          <div className={`${styles.stepName}`}>Step 1</div>
+                      </div>
+                      <div className={`${styles.processStep} ${CurrentPage === 2 ? styles.active : ''}`}>
+                          <div className={`${styles.stepNumber}`}>2</div>
+                          <div className={`${styles.stepName}`}>Step 2</div>
+                      </div>
+                  </div>
               </div>
-              <div className={`${styles.processStep} ${CurrentPage === 2 ? styles.active : ''}`}>
-                  <div className={`${styles.stepNumber}`}>2</div>
-                  <div className={`${styles.stepName}`}>Step 2</div>
-              </div>
+
+              <form onSubmit={handleSubmit(onSubmitHandler)}>
+                  <h1 className={`${styles.color} text-center`}>Register Your Account</h1><br></br>
+                  {CurrentPage === 1 && (
+                      <>
+                          {/* Content for Step 1 */}
+                      </>
+                  )}
+              </form>
           </div>
       </div>
-  
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <h1 className={`${styles.color} text-center`}>Register Your Account</h1><br></br>
-          {CurrentPage === 1 && (
-              <>
-                  {/* Content for Step 1 */}
-              </>
-          )}
-      </form>
-  </div>
-  
+  );
+};
     
  
     
