@@ -9,6 +9,25 @@ const RegisterForm = () => {
     const [CurrentPage, setCurrentPage] = React.useState(1);
     const [loading, setLoading] = React.useState(false);
     const { addToast } = useToasts();
+    const [otpSent, setOtpSent] = React.useState(false);
+    const [otpVerified, setOtpVerified] = React.useState(false);
+    const [phoneNumber, setPhoneNumber] = React.useState('');
+    const sendOtpHandler = () => {
+        // Implement logic to send OTP to the entered phone number
+        // For simplicity, let's set otpSent to true immediately
+        setOtpSent(true);
+    };
+
+    const verifyOtpHandler = (otp) => {
+        // Implement logic to verify the entered OTP
+        // For simplicity, let's manually set otpVerified to true if the entered OTP is 1234
+        if (otp === '1234') {
+            setOtpVerified(true);
+        } else {
+            // You can handle the case when the OTP is incorrect
+            setOtpVerified(false);
+        }
+    };
 
     const {
         register,
@@ -170,51 +189,92 @@ const RegisterForm = () => {
                                 </span>
                             )}
                         </div>
-                        <div className="mb-6">
-                            <label className="block mb-2 text-themeDarker">
-                                Email and Phone Number
-                            </label>
-                            <div className="flex gap-6">
-                                <input
-                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
-                                        errors?.email
-                                            ? '!border-red-500'
-                                            : 'border-gray'
-                                    } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
-                                        errors?.email
-                                            ? 'ring-red-500'
-                                            : 'focus:ring-themePrimary focus:ring-opacity-50'
-                                    }`}
-                                    type="email"
-                                    {...register('email', { required: true })}
-                                    placeholder="Enter Your Email"
-                                />
-                                <input
-                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
-                                        errors?.phone_number
-                                            ? '!border-red-500'
-                                            : 'border-gray'
-                                    } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
-                                        errors?.phone_number
-                                            ? 'ring-red-500'
-                                            : 'focus:ring-themePrimary focus:ring-opacity-50'
-                                    }`}
-                                    type="tel"
-                                    {...register('phone_number', {
-                                        required: true,
-                                    })}
-                                    placeholder="Enter Your Phone Number"
-                                />
-                            </div>
-                            <div className="flex">
-                                <div className="w-1/2">
-                                    {errors?.email && (
+                        <div className="flex gap-6 mt-6">
+                                <div className="w-6/12">
+                                    <label className="block mb-2 text-themeDarker text-sm">
+                                        Gender
+                                    </label>
+                                    <div className="flex gap-2">
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                id="male-radio"
+                                                value="male"
+                                                {...register('gender', { required: true })}
+                                                className="hidden absolute"
+                                            />
+                                            <label
+                                                htmlFor="male-radio"
+                                                className={`bg-themePrimary/20 w-full text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-2 py-1.5 text-center cursor-pointer rounded ${
+                                                    watch('gender') === 'male'
+                                                        ? 'bg-themePrimary text-white'
+                                                        : ''
+                                                }`}
+                                            >
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                id="female-radio"
+                                                value="female"
+                                                {...register('gender', { required: true })}
+                                                className="hidden absolute"
+                                            />
+                                            <label
+                                                htmlFor="female-radio"
+                                                className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-2 py-1.5 w-full text-center cursor-pointer rounded ${
+                                                    watch('gender') === 'female'
+                                                        ? 'bg-themePrimary text-white'
+                                                        : ''
+                                                }`}
+                                            >
+                                                Female
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                id="others-radio"
+                                                value="others"
+                                                {...register('gender', { required: true })}
+                                                className="hidden absolute"
+                                            />
+                                            <label
+                                                htmlFor="others-radio"
+                                                className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-2 py-1.5 w-full text-center cursor-pointer rounded ${
+                                                    watch('gender') === 'others'
+                                                        ? 'bg-themePrimary text-white'
+                                                        : ''
+                                                }`}
+                                            >
+                                                Others
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {errors?.gender && (
                                         <span className="text-red-600 text-xss italic">
-                                            Email is required
+                                            Gender is required
                                         </span>
                                     )}
                                 </div>
-                                <div className="w-1/2">
+                                <div className="w-6/12">
+                                    <label className="block mb-2 text-themeDarker text-sm">
+                                        Phone Number
+                                    </label>
+                                    <input
+                                        className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                            errors?.phone_number
+                                                ? '!border-red-500'
+                                                : 'border-gray'
+                                        } focus:ring-themePrimary focus:ring-opacity-50 text-sm`}
+                                        type="tel"
+                                        {...register('phone_number', {
+                                            required: true,
+                                        })}
+                                        placeholder="Enter Your Phone Number"
+                                    />
                                     {errors?.phone_number && (
                                         <span className="text-red-600 text-xss italic">
                                             Phone number is required
@@ -222,7 +282,8 @@ const RegisterForm = () => {
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        
+                               
                         <div className="mb-6">
                             <label className="block mb-2 text-themeDarker">
                                 State and Location
@@ -359,6 +420,44 @@ const RegisterForm = () => {
                         {/* ... (remaining code) */}
                      {/* ... (remaining code) */}
                 
+                     <div className="mb-6">
+                    <div className="flex gap-2 items-center">
+                        <input
+                            type="checkbox"
+                            id="agree-checkbox"
+                            {...register('agree', { required: true })}
+                            className="hidden absolute"
+                        />
+                        <label
+                            htmlFor="agree-checkbox"
+                            className={`text-coolGray-600 text-sm cursor-pointer ${
+                                watch('agree') ? 'relative' : ''
+                            }`}
+                        >
+                            <span className={`inline-block w-4 h-4 border rounded-md mr-2 ${watch('agree') ? 'border-themePrimary' : 'border-coolGray-400'}`}></span>
+                            {watch('agree') && (
+                                <span className="absolute top-0 left-0 mt-1 ml-0.5 text-themePrimary">&#10003;</span>
+                            )}
+                            I agree to the{' '}
+                            <Link href="/terms-of-service">
+                                <a className="text-themePrimary hover:underline">
+                                    Terms of Service
+                                </a>
+                            </Link>{' '}
+                            &{' '}
+                            <Link href="/privacy-policy">
+                                <a className="text-themePrimary hover:underline">
+                                    Privacy Policy
+                                </a>
+                            </Link>
+                        </label>
+                    </div>
+                    {errors?.agree && (
+                        <span className="text-red-600 text-xss italic">
+                            Please agree to the terms and privacy policy
+                        </span>
+                    )}
+                </div>
 
                 {CurrentPage === 2 && (
                     <>
