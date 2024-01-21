@@ -15,7 +15,7 @@ import {
 export const Menu = [
     {
         name: 'Home',
-        link: '/',
+        link: '/Sign-up',
     },
     {
         name: 'Find Job',
