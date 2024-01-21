@@ -112,24 +112,7 @@ const form = () => {
   <>
 
     
-    <div className="flex gap-6 pt-2 pb-8 w-full">
-      <div className="w-6/12 checked:bg-themePrimary text-[#fff]">
-        <input
-          type="radio"
-          id="freelancer-radio"
-          defaultValue="candidate"
-          className="hidden absolute"
-          {...register('freelancer_role', { defaultValue: 'candidate' })}
-          defaultChecked
-        />
-        <label
-          htmlFor="freelancer-radio"
-          className="bg-themePrimary/20 w-full text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded"
-        >
-          Candidate
-        </label>
-      </div>
-    </div>
+ 
     
     <div className="mb-6">
       <div className="flex gap-6">
