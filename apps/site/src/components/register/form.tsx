@@ -191,9 +191,71 @@ const RegisterForm = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="mb-6">
+                            <label className="block mb-2 text-themeDarker">
+                                New Password
+                            </label>
+                            <div className="flex gap-6">
+                                <input
+                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
+                                        errors?.password
+                                            ? '!border-red-500'
+                                            : 'border-gray'
+                                    } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                        errors?.password
+                                            ? 'ring-red-500'
+                                            : 'focus:ring-themePrimary focus:ring-opacity-50'
+                                    }`}
+                                    type="password"
+                                    {...register('password', {
+                                        required: true,
+                                        minLength: 8,
+                                    })}
+                                    placeholder="New Password"
+                                />
+                                <input
+                                    className={`appearance-none block w-1/2 !p-3 leading-5 text-coolGray-900 border ${
+                                        errors?.confirm_password
+                                            ? '!border-red-500'
+                                            : 'border-gray'
+                                    } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                        errors?.confirm_password
+                                            ? 'ring-red-500'
+                                            : 'focus:ring-themePrimary focus:ring-opacity-50'
+                                    }`}
+                                    type="password"
+                                    {...register('confirm_password', {
+                                        required: true,
+                                        validate: (value) =>
+                                            value === watch('password') ||
+                                            'Passwords do not match',
+                                    })}
+                                    placeholder="Confirm Password"
+                                />
+                            </div>
+                            <div className="flex">
+                                <div className="w-1/2">
+                                    {errors?.password && (
+                                        <span className="text-red-600 text-xss italic">
+                                            {errors?.password?.message}
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="w-1/2">
+                                    {errors?.confirm_password && (
+                                        <span className="text-red-600 text-xss italic">
+                                            {errors?.confirm_password?.message}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                         {/* ... (remaining code) */}
                     </>
                 )}
+                        {/* ... (remaining code) */}
+                     {/* ... (remaining code) */}
+                
 
                 {CurrentPage === 2 && (
                     <>
