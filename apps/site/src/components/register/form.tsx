@@ -4,7 +4,17 @@ import { useToasts } from 'react-toast-notifications';
 import { Axios } from '../utils/axiosKits';
 import styles from '../RegisterForm.module.css';
 import React, { useState } from 'react';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
+interface FormData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  password: string;
+  confirm_password: string;
+  // Add other form fields here
+}
 const handleSendOTP = () => {
   // Placeholder logic for sending OTP
   console.log('Sending OTP...'); // Replace this with your actual OTP sending logic
