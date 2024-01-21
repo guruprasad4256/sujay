@@ -17,6 +17,37 @@ const RegisterForm = () => {
         watch,
         formState: { errors },
     } = useForm();
+    
+    const stateLocationData = [
+        {
+            "S. No.": 1,
+            "DISTRICT": "ANDAMAN_NICOBAR_IS",
+            "STATE": "Andman & Nicobar Island"
+        },
+        {
+            "S. No.": 2,
+            "DISTRICT": "ADILABAD",
+            "STATE": "Andhra Pradesh"
+        },
+        {
+            "S. No.": 3,
+            "DISTRICT": "ANANTAPUR",
+            "STATE": "Andhra Pradesh"
+        },
+        // Add more data as needed
+    ];
+
+    const [selectedState, setSelectedState] = React.useState('');
+    const [availableLocations, setAvailableLocations] = React.useState([]);
+
+    React.useEffect(() => {
+        // Filter locations based on the selected state
+        const filteredLocations = stateLocationData
+            .filter((item) => item.STATE === selectedState)
+            .map((item) => item.DISTRICT);
+
+        setAvailableLocations(filteredLocations);
+    }, [selectedState]);
 
     /* ----------------------------- register submit function ---------------------------- */
     const onSubmitHandler = async (data: any) => {
@@ -192,6 +223,77 @@ const RegisterForm = () => {
                             </div>
                         </div>
                         <div className="mb-6">
+                            <label className="block mb-2 text-themeDarker">
+                                State and Location
+                            </label>
+                            <div className="flex gap-6">
+                                <div className="w-1/2">
+                                    <select
+                                        className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
+                                            errors?.state
+                                                ? '!border-red-500'
+                                                : 'border-gray'
+                                        } rounded-lg focus:outline-none focus:ring-2 ${
+                                            errors?.state
+                                                ? 'ring-red-500'
+                                                : 'focus:ring-themePrimary focus:ring-opacity-50'
+                                        }`}
+                                        {...register('state', { required: true })}
+                                        onChange={(e) =>
+                                            setSelectedState(e.target.value)
+                                        }
+                                    >
+                                        <option value="" disabled selected>
+                                            Select State
+                                        </option>
+                                        {stateLocationData.map((item) => (
+                                            <option
+                                                key={item["S. No."]}
+                                                value={item.STATE}
+                                            >
+                                                {item.STATE}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors?.state && (
+                                        <span className="text-red-600 text-xss italic">
+                                            State is required
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="w-1/2">
+                                    <select
+                                        className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
+                                            errors?.location
+                                                ? '!border-red-500'
+                                                : 'border-gray'
+                                        } rounded-lg focus:outline-none focus:ring-2 ${
+                                            errors?.location
+                                                ? 'ring-red-500'
+                                                : 'focus:ring-themePrimary focus:ring-opacity-50'
+                                        }`}
+                                        {...register('location', {
+                                            required: true,
+                                        })}
+                                    >
+                                        <option value="" disabled selected>
+                                            Select Location
+                                        </option>
+                                        {availableLocations.map((location) => (
+                                            <option key={location} value={location}>
+                                                {location}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors?.location && (
+                                        <span className="text-red-600 text-xss italic">
+                                            Location is required
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                          <div className="mb-6">
                             <label className="block mb-2 text-themeDarker">
                                 New Password
                             </label>
