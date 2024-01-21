@@ -15,7 +15,7 @@ import {
 export const Menu = [
     {
         name: 'Home',
-        link: '/',
+        link: '/home.tsx',
     },
     {
         name: 'Find Job',

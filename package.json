@@ -9,7 +9,7 @@
   "scripts": {
   "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
     "build": "turbo run build",
     "start": "turbo run start",
     "dev": "turbo run dev --parallel",

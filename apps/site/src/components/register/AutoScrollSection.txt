@@ -1,0 +1,20 @@
+// ScrollingContent.tsx
+import React from 'react';
+
+const ScrollingContent = () => {
+  return (
+    <div className="scrolling-content">
+      <div className="section">
+        <h2>Section 1</h2>
+        <p>This is the first section of scrolling content.</p>
+      </div>
+      <div className="section">
+        <h2>Section 2</h2>
+        <p>This is the second section of scrolling content.</p>
+      </div>
+      {/* Add more sections as needed */}
+    </div>
+  );
+};
+
+export default ScrollingContent;
