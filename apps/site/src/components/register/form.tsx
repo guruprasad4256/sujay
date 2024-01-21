@@ -280,18 +280,7 @@ const form = () => {
           </div>
 
           {/* OTP Input Boxes */}
-          <div className="flex items-center justify-center mt-4">
-            {[1, 2, 3, 4].map((index) => (
-              <input
-                key={index}
-                type="text"
-                maxLength="1"
-                className="w-10 h-10 text-center border border-coolGray-300 rounded-md mx-1 focus:outline-none focus:ring focus:border-themePrimary"
-              />
-            ))}
-          </div>
-                <br></br>
-            </div>
+          
       
 )}
 
