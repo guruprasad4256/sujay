@@ -947,7 +947,467 @@ const stateLocationData = [
         </div>
     </div>
 )}
+{CurrentPage === 5 && (
+    <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-4">Employment Information</h3>
 
+        {/* Are You Currently Employed? */}
+        <div className="mb-4 flex items-center">
+            <label className="block mb-2 text-themeDarker mr-2">
+                Employed?
+            </label>
+            <div className="flex items-center">
+                <input
+                    type="radio"
+                    id="employedYes"
+                    value="Yes"
+                    {...register('currentlyEmployed')}
+                    className="hidden"
+                />
+                <label
+                    htmlFor="employedYes"
+                    className="mr-2 bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-2.5 py-1.5 text-center cursor-pointer rounded text-xs"
+                >
+                    Yes
+                </label>
+                <input
+                    type="radio"
+                    id="employedNo"
+                    value="No"
+                    {...register('currentlyEmployed')}
+                    className="hidden"
+                />
+                <label
+                    htmlFor="employedNo"
+                    className="bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-2.5 py-1.5 text-center cursor-pointer rounded text-xs"
+                >
+                    No
+                </label>
+            </div>
+        </div>
+
+        {/* Additional Fields if Employed */}
+        {watch('currentlyEmployed') === 'Yes' && (
+            <>
+                {/* Total Work Experience */}
+                <div className="mb-4 flex items-center space-x-4">
+    <label className="block mb-2 text-themeDarker mr-2 text-sm">
+        Exp.
+    </label>
+    <div className="flex items-center space-x-2">
+        {/* Choose Year */}
+        <div className="mr-2">
+            <label htmlFor="totalExperienceYear" className="block text-themeDarker text-xs">
+                Yr
+            </label>
+            <input
+                id="totalExperienceYear"
+                type="number"
+                {...register('totalExperienceYear')}
+                className="appearance-none w-10 p-2 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50 text-xs"
+                placeholder="Yr"
+            />
+        </div>
+        {/* Choose Month */}
+        <div>
+            <label htmlFor="totalExperienceMonth" className="block text-themeDarker text-xs">
+                Mo
+            </label>
+            <input
+                id="totalExperienceMonth"
+                type="number"
+                {...register('totalExperienceMonth')}
+                className="appearance-none w-10 p-2 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50 text-xs"
+                placeholder="Mo"
+            />
+        </div>
+    </div>
+    <div className="mb-6">
+        <label className="block mb-2 text-themeDarker text-sm">
+            State and Location
+        </label>
+        <div className="flex gap-2">
+            <div className="w-1/2">
+                <select
+                    className={`appearance-none block w-full p-2 leading-5 text-coolGray-900 border ${
+                        errors?.state
+                            ? '!border-red-500'
+                            : 'border-gray'
+                    } rounded-lg focus:outline-none focus:ring-2 ${
+                        errors?.state
+                            ? 'ring-red-500'
+                            : 'focus:ring-themePrimary focus:ring-opacity-50'
+                    } text-xs`}
+                    {...register('state', { required: true })}
+                    onChange={(e) =>
+                        setSelectedState(e.target.value)
+                    }
+                >
+                    <option value="" disabled selected>
+                        Select State
+                    </option>
+                    {stateLocationData.map((item) => (
+                        <option
+                            key={item["S. No."]}
+                            value={item.STATE}
+                        >
+                            {item.STATE}
+                        </option>
+                    ))}
+                </select>
+                {errors?.state && (
+                    <span className="text-red-600 text-xss italic">
+                        State is required
+                    </span>
+                )}
+            </div>
+            <div className="w-1/2">
+                <select
+                    className={`appearance-none block w-full p-2 leading-5 text-coolGray-900 border ${
+                        errors?.location
+                            ? '!border-red-500'
+                            : 'border-gray'
+                    } rounded-lg focus:outline-none focus:ring-2 ${
+                        errors?.location
+                            ? 'ring-red-500'
+                            : 'focus:ring-themePrimary focus:ring-opacity-50'
+                    } text-xs`}
+                    {...register('location', {
+                        required: true,
+                    })}
+                >
+                    <option value="" disabled selected>
+                        Select Location
+                    </option>
+                    {availableLocations.map((location) => (
+                        <option key={location} value={location}>
+                            {location}
+                        </option>
+                    ))}
+                </select>
+                {errors?.location && (
+                    <span className="text-red-600 text-xss italic">
+                        Location is required
+                    </span>
+                )}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                {/* Job Title and Department */}
+                <div className="flex gap-2 mb-4">
+                    {/* Job Title */}
+                    <div>
+                        <label className="block mb-2 text-themeDarker text-xs">
+                            Title
+                        </label>
+                        <input
+                            type="text"
+                            {...register('jobTitle')}
+                            className={`appearance-none w-28 p-2 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                errors?.jobTitle
+                                    ? '!border-red-500'
+                                    : 'border-gray'
+                            } focus:ring-themePrimary focus:ring-opacity-50 text-xs`}
+                            placeholder="Title"
+                        />
+                        {errors?.jobTitle && (
+                            <span className="text-red-600 text-xss italic">
+                                Required
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Department */}
+                    <div>
+                        <label className="block mb-2 text-themeDarker text-xs">
+                            Dept.
+                        </label>
+                        <input
+                            type="text"
+                            {...register('department')}
+                            className={`appearance-none w-28 p-2 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                errors?.department
+                                    ? '!border-red-500'
+                                    : 'border-gray'
+                            } focus:ring-themePrimary focus:ring-opacity-50 text-xs`}
+                            placeholder="Dept."
+                        />
+                      
+                    </div>
+                </div>
+
+                {/* Industry Type Dropdown, Date of Joining, and CTC/Stipend */}
+                <div className="flex gap-2 mb-4">
+                    {/* Industry Type */}
+                   {/* Industry Type Dropdown */}
+<div className="mb-6">
+    <label className="block mb-2 text-themeDarker">
+        Industry Type
+    </label>
+    <select
+        {...register('industryType')}
+        className="appearance-none block w-full p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+    >
+        <option value="Type 1">Type 1</option>
+        <option value="Type 2">Type 2</option>
+        <option value="Type 3">Type 3</option>
+        <option value="Type 4">Type 4</option>
+        <option value="Type 5">Type 5</option>
+        <option value="Type 6">Type 6</option>
+        <option value="Type 7">Type 7</option>
+        <option value="Type 8">Type 8</option>
+        <option value="Type 9">Type 9</option>
+        <option value="Type 10">Type 10</option>
+        <option value="Custom">Custom</option>
+    </select>
+</div>
+
+{/* Additional Input for Custom Industry Type */}
+{watch('industryType') === 'Custom' && (
+    <div className="mb-6">
+        <label className="block mb-2 text-themeDarker">
+            Custom Industry Type
+        </label>
+        <input
+            type="text"
+            {...register('customIndustryType')}
+            className={`appearance-none block w-full p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                errors?.customIndustryType
+                    ? '!border-red-500'
+                    : 'border-gray'
+            } focus:ring-themePrimary focus:ring-opacity-50`}
+            placeholder="Enter Custom Industry Type"
+        />
+        {errors?.customIndustryType && (
+            <span className="text-red-600 text-xss italic">
+                Custom Industry Type is required
+            </span>
+        )}
+    </div>
+)}
+
+
+                    {/* Date of Joining */}
+                    <div>
+                        <label className="block mb-2 text-themeDarker text-xs">
+                            Joining
+                        </label>
+                        <input
+                            type="date"
+                            {...register('dateOfJoining')}
+                            className={`appearance-none w-32 p-2 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                errors?.dateOfJoining
+                                    ? '!border-red-500'
+                                    : 'border-gray'
+                            } focus:ring-themePrimary focus:ring-opacity-50 text-xs`}
+                        />
+                        {errors?.dateOfJoining && (
+                            <span className="text-red-600 text-xss italic">
+                                Required
+                            </span>
+                        )}
+                    </div>
+
+                    {/* CTC/Stipend */}
+                    <div>
+                        <label className="block mb-2 text-themeDarker text-xs">
+                            CTC
+                        </label>
+                        <input
+                            type="text"
+                            {...register('ctcStipend')}
+                            className={`appearance-none w-32 p-2 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                                errors?.ctcStipend
+                                    ? '!border-red-500'
+                                    : 'border-gray'
+                            } focus:ring-themePrimary focus:ring-opacity-50 text-xs`}
+                            placeholder="CTC"
+                        />
+                        {errors?.ctcStipend && (
+                            <span className="text-red-600 text-xss italic">
+                                Required
+                            </span>
+                        )}
+                    </div>
+                </div>
+
+                {/* Reason For Change */}
+                <div className="mb-4">
+                    <label className="block mb-2 text-themeDarker text-xs">
+                        Reason
+                    </label>
+                    <textarea
+                        {...register('reasonForChange')}
+                        className={`resize-none appearance-none w-full p-2 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                            errors?.reasonForChange
+                                ? '!border-red-500'
+                                : 'border-gray'
+                        } focus:ring-themePrimary focus:ring-opacity-50 text-xs`}
+                        placeholder="Reason"
+                    />
+                    {errors?.reasonForChange && (
+                        <span className="text-red-600 text-xss italic">
+                            Required
+                        </span>
+                    )}
+                </div>
+            </>
+        )}
+
+{/* Have you worked Before? */}
+{watch('currentlyEmployed') === 'No' && (
+    <div className="mb-6 flex items-center">
+        <label className="block mb-2 text-themeDarker mr-4">
+            Have you worked before?
+        </label>
+
+        <input
+            type="radio"
+            id="workedBeforeYes"
+            value="Yes"
+            {...register('workedBefore')}
+            className="hidden"
+        />
+        <label
+            htmlFor="workedBeforeYes"
+            className="mr-2 bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded"
+        >
+            Yes
+        </label>
+
+        <input
+            type="radio"
+            id="workedBeforeNo"
+            value="No"
+            {...register('workedBefore')}
+            className="hidden"
+        />
+        <label
+            htmlFor="workedBeforeNo"
+            className="bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded"
+        >
+            No
+        </label>
+    </div>
+)}
+
+{/* Additional Fields if Worked Before */}
+{watch('workedBefore') === 'Yes' && (
+    <div className="mb-6 flex items-center flex-wrap">
+        {/* Section 1: Total Work Experience */}
+        <div className="flex items-center space-x-4">
+            <label className="block mb-2 text-themeDarker">
+                Total Work Experience
+            </label>
+            {/* Choose Year */}
+            <div className="mr-4">
+                <label htmlFor="totalExperienceYear" className="block text-themeDarker">
+                    Years
+                </label>
+                <input
+                    id="totalExperienceYear"
+                    type="number"
+                    {...register('totalExperienceYear')}
+                    className="appearance-none block w-20 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                    placeholder="Years"
+                />
+            </div>
+            {/* Choose Month */}
+            <div>
+                <label htmlFor="totalExperienceMonth" className="block text-themeDarker">
+                    Months
+                </label>
+                <input
+                    id="totalExperienceMonth"
+                    type="number"
+                    {...register('totalExperienceMonth')}
+                    className="appearance-none block w-20 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                    placeholder="Months"
+                />
+            </div>
+        </div>
+
+        {/* Section 2: Previous Job Type and Previous Company Name */}
+        <div className="flex items-center space-x-4 mt-4">
+            {/* Previous Job Type */}
+            <div className="flex items-center space-x-4">
+                <label htmlFor="previousJobType" className="block mb-2 text-themeDarker">
+                    Previous Job Type
+                </label>
+                <select
+                    id="previousJobType"
+                    {...register('previousJobType')}
+                    className="appearance-none block w-28 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                >
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Freelancer">Freelancer</option>
+                </select>
+            </div>
+
+            {/* Previous Company Name */}
+            <div className="flex items-center space-x-4">
+                <label htmlFor="previousCompanyName" className="block mb-2 text-themeDarker">
+                    Previous Company Name
+                </label>
+                <input
+                    id="previousCompanyName"
+                    type="text"
+                    {...register('previousCompanyName')}
+                    className="appearance-none block w-40 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                    placeholder="Enter Company Name"
+                />
+            </div>
+        </div>
+    </div>
+)}
+{/* Section 6: Relevant Experience (if 'No' is selected for 'Have you worked before?') */}
+{watch('workedBefore') === 'No' && (
+    <div className="mb-6 flex items-center">
+        <label className="block mb-2 text-themeDarker mr-4">
+            Do you have any Relevant experience?
+        </label>
+
+        <input
+            type="text"
+            id="relevantExperience"
+            {...register('relevantExperience')}
+            className={`appearance-none block w-64 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
+                errors?.relevantExperience
+                    ? '!border-red-500'
+                    : 'border-gray'
+            } focus:ring-themePrimary focus:ring-opacity-50`}
+            placeholder="Enter Relevant experience"
+        />
+        {errors?.relevantExperience && (
+            <span className="text-red-600 text-xss italic">
+                Relevant experience is required
+            </span>
+        )}
+    </div>
+)}
+
+   {/* Back and Next Step Buttons */}
+   <div className="flex gap-2">
+            <button
+                onClick={() => setCurrentPage(4)}
+                className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
+            >
+                Back
+            </button>
+            <button
+                onClick={() => setCurrentPage(6)}
+                className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
+            >
+                Next Step
+            </button>
+        </div>
+        
+    </div>
+)}
    <p className="text-center">
                     <span className="text-xss1 text-deep">
                         Already have an account?
