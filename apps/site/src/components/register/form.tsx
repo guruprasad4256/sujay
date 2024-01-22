@@ -27,15 +27,20 @@ const RegisterForm = () => {
 // ... (existing code)
 
 // ... (existing code)
-const handleFileChange = (e, fieldName) => {
-    const file = e.target.files[0];
+// ... (existing code)
+
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
+    const file = e.target.files?.[0];
     if (file) {
         setValue(fieldName, file);
     }
 };
 
-const isImage = (file) => {
-    return file.type.startsWith('image/');
+// ... (existing code)
+
+
+const isImage = (file: File | undefined) => {
+    return file?.type.startsWith('image/') ?? false;
 };
 
 
