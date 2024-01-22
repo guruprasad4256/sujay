@@ -6,6 +6,7 @@ import { useToasts } from 'react-toast-notifications';
 import '../RegisterForm.module.css'; 
 import { Axios } from '../utils/axiosKits';
 import { useDropzone } from 'react-dropzone';
+import { useCallback, useState } from 'react';
 
 const RegisterForm = () => {
     const [CurrentPage, setCurrentPage] = React.useState(1);
@@ -19,35 +20,10 @@ const RegisterForm = () => {
         // For simplicity, let's set otpSent to true immediately
         setOtpSent(true);
     };
-  
-// ... (existing code)
-
-// ... (existing code)
-const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files && e.target.files[0];
-
-    // Update the state to store the selected file
-    setPortfolioFiles((prevFiles) => {
-        const newFiles: (File | null)[] = [...prevFiles];
-
-        if (file !== null) {
-            newFiles[index - 1] = file;
-        }
-
-        return newFiles;
-    });
-};
-
-// ... (existing code)
-
-const openFileInput = (index: number) => {
-    // Trigger click on the hidden file input element
-    const fileInput = document.getElementById(`portfolioFile${index}`) as HTMLInputElement | null;
     
-    if (fileInput) {
-        fileInput.click();
-    }
-};
+
+// ... (existing code)
+
 
 // ... (existing code)
 
@@ -861,53 +837,59 @@ const readFileAsDataURL = (file) => {
 
 
 {CurrentPage === 4 && (
-    <div className="mb-6">
-    <h3 className="text-lg font-semibold mb-4">Portfolio</h3>
+ <div className="mb-6">
+ <div className="mb-4">
+     <h3 className="text-lg font-semibold mb-2">Portfolio</h3>
+     <p className="text-themeDark text-sm">
+         You can upload images and PDFs to showcase your work.
+     </p>
+ </div>
 
-    <div className="flex gap-4">
-        {[1, 2, 3].map((index) => (
-            <div key={index} className="flex flex-col items-center">
-                <label htmlFor={`portfolioFile${index}`} className="mb-2">
-                    Upload File {index}
-                </label>
-                <input
-                    type="file"
-                    id={`portfolioFile${index}`}
-                    accept="image/*, application/pdf"
-                    onChange={(e) => handleFileUpload(e, index)}
-                    className="hidden"
-                />
-                <div className="border border-gray-300 p-4 rounded-lg cursor-pointer" onClick={() => openFileInput(index)}>
-                    {portfolioFiles[index - 1] ? (
-                        // Display a PDF preview or icon based on the file type
-                        portfolioFiles[index - 1].type === "application/pdf" ? (
-                            <iframe
-                                src={URL.createObjectURL(portfolioFiles[index - 1])}
-                                title={`Portfolio ${index}`}
-                                className="w-24 h-24 object-cover mb-2"
-                                frameBorder="0"
-                                scrolling="auto"
-                            ></iframe>
-                        ) : (
-                            // Display an image preview if an image is uploaded
-                            <img
-                                src={URL.createObjectURL(portfolioFiles[index - 1])}
-                                alt={`Portfolio ${index}`}
-                                className="w-24 h-24 object-cover mb-2"
-                            />
-                        )
-                    ) : (
-                        // Display a placeholder if no file is uploaded
-                        <div className="w-24 h-24 border border-dashed flex items-center justify-center">
-                            <span className="text-gray-400">Upload Preview</span>
-                        </div>
-                    )}
-                </div>
-            </div>
-        ))}
-    </div>
+ <div className="flex gap-4">
+     {[1, 2, 3].map((index) => (
+         <div key={index} className="relative">
+             <label
+                 htmlFor={`portfolio-upload-${index}`}
+                 className="cursor-pointer block overflow-hidden bg-gray-100 border rounded-md p-4"
+             >
+                 <span className="block text-center">Click to Upload</span>
+             </label>
+             <input
+                 type="file"
+                 id={`portfolio-upload-${index}`}
+                 {...register(`portfolioFiles[${index}]`)}
+                 className="hidden"
+             />
+             {/* Display preview if a file is uploaded */}
+             {watch(`portfolioFiles[${index}]`) && (
+                 <div className="mt-2">
+                     {watch(`portfolioFiles[${index}]`).name}
+                     {/* Add logic to display preview based on file type (image or PDF) */}
+                     {/* For simplicity, you can use an <img> tag for images and a link for PDFs */}
+                     {watch(`portfolioFiles[${index}]`).type.includes('image') ? (
+                         <img
+                             src={URL.createObjectURL(watch(`portfolioFiles[${index}]`))}
+                             alt={`Preview ${index}`}
+                             className="max-w-full h-auto"
+                         />
+                     ) : (
+                         <a
+                             href={URL.createObjectURL(watch(`portfolioFiles[${index}]`))}
+                             target="_blank"
+                             rel="noopener noreferrer"
+                         >
+                             Preview PDF
+                         </a>
+                     )}
+                 </div>
+             )}
+         </div>
+     ))}
+ </div>
 </div>
-)}    <p className="text-center">
+)}
+
+<p className="text-center">
                     <span className="text-xss1 text-deep">
                         Already have an account?
                     </span>
