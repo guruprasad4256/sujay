@@ -747,28 +747,11 @@ const stateLocationData = [
             </div>
         </div>
 
-        <div className="mt-4 flex gap-4">
-            <div>
-                <label className="block mb-2 text-themeDarker">Or type your own tools:</label>
-                <input
-                    type="text"
-                    {...register('customTools')}
-                    className="border rounded p-2"
-                    placeholder="Type your tools here"
-                />
-            </div>
+      
 
-            <div>
-                <label className="block mb-2 text-themeDarker">Or type your own skills:</label>
-                <input
-                    type="text"
-                    {...register('customSkills')}
-                    className="border rounded p-2"
-                    placeholder="Type your skills here"
-                />
-            </div>
+          
         </div>
-    </div>
+    
 )}
 
 
@@ -933,8 +916,10 @@ const stateLocationData = [
     
 )}
 
-{CurrentPage === 4 && (
 
+{CurrentPage === 4 && (
+    <div className="mb-6">
+      
         <div className="mb-6">
             <label className="block mb-2 text-themeDarker">Portfolio Link</label>
             <input
@@ -944,7 +929,23 @@ const stateLocationData = [
                 placeholder="Enter Your Portfolio Link (Optional)"
             />
         </div>
-   
+
+        {/* Back and Next Step Buttons */}
+        <div className="flex gap-4">
+            <button
+                onClick={() => setCurrentPage(3)}
+                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+            >
+                Back
+            </button>
+            <button
+                onClick={() => setCurrentPage(5)}
+                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+            >
+                Next Step
+            </button>
+        </div>
+    </div>
 )}
 
    <p className="text-center">
