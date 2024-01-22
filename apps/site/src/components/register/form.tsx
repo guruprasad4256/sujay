@@ -19,21 +19,24 @@ const RegisterForm = () => {
         // For simplicity, let's set otpSent to true immediately
         setOtpSent(true);
     };
-    // ... (existing code)
-    // ... (existing code)
+  
+// ... (existing code)
 
 const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files && e.target.files[0];
+    const file: File | null | undefined = e.target.files && e.target.files[0];
 
     // Update the state to store the selected file
     setPortfolioFiles((prevFiles) => {
         const newFiles = [...prevFiles];
-        newFiles[index - 1] = file;
+
+        // Check if file is truthy and not null before assignment
+        if (file !== null && file !== undefined) {
+            newFiles[index - 1] = file;
+        }
+
         return newFiles;
     });
 };
-
-// ... (existing code)
 
 const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
 
