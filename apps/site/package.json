@@ -10,6 +10,7 @@
     "prettier-fix": "prettier --write ."
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
     "@metajob/api-connector": "workspace:^0.0.1",
     "@metajob/next-local": "workspace:^0.0.1",
     "@metajob/next-mongo": "workspace:^0.0.1",
@@ -30,6 +31,7 @@
     "nodemailer": "^6.7.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.27.1",
     "react-icons": "^4.3.1",
     "react-iframe": "^1.8.0",

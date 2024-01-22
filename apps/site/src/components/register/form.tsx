@@ -3,7 +3,9 @@ import Router from 'next/router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
+import '../RegisterForm.module.css'; 
 import { Axios } from '../utils/axiosKits';
+import { useDropzone } from 'react-dropzone';
 
 const RegisterForm = () => {
     const [CurrentPage, setCurrentPage] = React.useState(1);
@@ -17,12 +19,46 @@ const RegisterForm = () => {
         // For simplicity, let's set otpSent to true immediately
         setOtpSent(true);
     };
-    const designTypeTools = {
-        GD: ['Tool1', 'Tool2', 'Tool3'],
-        '3D': ['ToolA', 'ToolB', 'ToolC'],
-        Illustrator: ['ToolX', 'ToolY', 'ToolZ'],
-        UI: ['ToolUI1', 'ToolUI2', 'ToolUI3'],
+    // ... (existing code)
+    const handleFileUpload = (e, index) => {
+        const file = e.target.files[0];
+    
+        // Update the state to store the selected file
+        setPortfolioFiles((prevFiles) => {
+            const newFiles = [...prevFiles];
+            newFiles[index - 1] = file;
+            return newFiles;
+        });
     };
+    const openFileInput = (index) => {
+        // Trigger click on the hidden file input element
+        document.getElementById(`portfolioFile${index}`).click();
+    };
+const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
+
+// ... (existing code)
+
+    const [selectedTools, setSelectedTools] = React.useState([]);
+    const [selectedSkills, setSelectedSkills] = React.useState([]);
+    const designTypeOptions = {
+        GD: {
+            tools: ['Tool1', 'Tool2', 'Tool3'],
+            skills: ['Skill1', 'Skill2', 'Skill3'],
+        },
+        '3D': {
+            tools: ['ToolA', 'ToolB', 'ToolC'],
+            skills: ['SkillA', 'SkillB', 'SkillC'],
+        },
+        Illustrator: {
+            tools: ['ToolX', 'ToolY', 'ToolZ'],
+            skills: ['SkillX', 'SkillY', 'SkillZ'],
+        },
+        UI: {
+            tools: ['ToolUI1', 'ToolUI2', 'ToolUI3'],
+            skills: ['SkillUI1', 'SkillUI2', 'SkillUI3'],
+        },
+    };
+    
     
     const verifyOtpHandler = (otp: string) => {
         // Implement logic to verify the entered OTP
@@ -49,9 +85,31 @@ const RegisterForm = () => {
         handleSubmit,
         reset,
         watch,
+        setValue,  // Add this line to get access to setValue
+        getValues, // Add this line to get access to getValues
         formState: { errors },
     } = useForm();
-    
+    const [previewURLs, setPreviewURLs] = React.useState({});
+
+// File change handler
+const handleFileChange = async (e, boxNumber) => {
+    const file = e.target.files[0];
+    if (file) {
+        const previewURL = await readFileAsDataURL(file);
+        setPreviewURLs((prev) => ({ ...prev, [boxNumber]: previewURL }));
+    }
+};
+
+// Function to read file as Data URL
+const readFileAsDataURL = (file) => {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            resolve(reader.result);
+        };
+        reader.readAsDataURL(file);
+    });
+};
     const stateLocationData = [
         {
             "S. No.": 1,
@@ -684,25 +742,52 @@ const RegisterForm = () => {
            </div>
       
 )}
- {CurrentPage === 4 && (
+
+
+{CurrentPage === 4 && (
     <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-4">Select Tools</h3>
-        <div className="flex flex-col gap-2">
-            {designTypeTools[watch('designType') as keyof typeof designTypeTools] &&
-                designTypeTools[watch('designType') as keyof typeof designTypeTools].map((tool, index) => (
-                    <div key={index}>
-                        <input
-                            type="checkbox"
-                            id={`tool-${index}`}
-                            value={tool}
-                            {...register('selectedTools')}
-                        />
-                        <label htmlFor={`tool-${index}`} className="ml-2">
-                            {tool}
-                        </label>
-                    </div>
-                ))}
-            <div className="mt-4">
+        <div className="flex justify-between mb-4">
+            <div>
+                <h3 className="text-lg font-semibold mb-2">Select Tools</h3>
+                <div className="flex gap-2">
+                    {/* Add a searchable dropdown for tools */}
+                    <select
+                        {...register('selectedTools')}
+                        className="border rounded p-2"
+                    >
+                        <option value="" disabled hidden>Select Tools</option>
+                        {designTypeOptions[watch('designType') as keyof typeof designTypeOptions]?.tools &&
+                            designTypeOptions[watch('designType') as keyof typeof designTypeOptions]?.tools.map((tool, index) => (
+                                <option key={index} value={tool}>
+                                    {tool}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <h3 className="text-lg font-semibold mb-2">Select Skills</h3>
+                <div className="flex gap-2">
+                    {/* Add a searchable dropdown for skills */}
+                    <select
+                        {...register('selectedSkills')}
+                        className="border rounded p-2"
+                    >
+                        <option value="" disabled hidden>Select Skills</option>
+                        {designTypeOptions[watch('designType') as keyof typeof designTypeOptions]?.skills &&
+                            designTypeOptions[watch('designType') as keyof typeof designTypeOptions]?.skills.map((skill, index) => (
+                                <option key={index} value={skill}>
+                                    {skill}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div className="mt-4 flex gap-4">
+            <div>
                 <label className="block mb-2 text-themeDarker">Or type your own tools:</label>
                 <input
                     type="text"
@@ -711,11 +796,100 @@ const RegisterForm = () => {
                     placeholder="Type your tools here"
                 />
             </div>
+
+            <div>
+                <label className="block mb-2 text-themeDarker">Or type your own skills:</label>
+                <input
+                    type="text"
+                    {...register('customSkills')}
+                    className="border rounded p-2"
+                    placeholder="Type your skills here"
+                />
+            </div>
         </div>
     </div>
 )}
 
-                <p className="text-center">
+
+{CurrentPage === 4 && (
+    <div className="mb-6">
+        <div className="flex justify-between mb-4">
+            <div className="flex gap-4">
+                <div>
+                    <label className="block mb-2 text-themeDarker">Certification Name:</label>
+                    <input
+                        type="text"
+                        {...register('certificationName')}
+                        className="border rounded p-2"
+                        placeholder="Enter Certification Name"
+                    />
+                </div>
+                <div>
+                    <label className="block mb-2 text-themeDarker">Institution Name (if any):</label>
+                    <input
+                        type="text"
+                        {...register('institutionName')}
+                        className="border rounded p-2"
+                        placeholder="Enter Institution Name"
+                    />
+                </div>
+            </div>
+        </div>
+
+        {/* Add other elements related to Certification section if needed */}
+    </div>
+)}
+
+
+
+{CurrentPage === 4 && (
+    <div className="mb-6">
+    <h3 className="text-lg font-semibold mb-4">Portfolio</h3>
+
+    <div className="flex gap-4">
+        {[1, 2, 3].map((index) => (
+            <div key={index} className="flex flex-col items-center">
+                <label htmlFor={`portfolioFile${index}`} className="mb-2">
+                    Upload File {index}
+                </label>
+                <input
+                    type="file"
+                    id={`portfolioFile${index}`}
+                    accept="image/*, application/pdf"
+                    onChange={(e) => handleFileUpload(e, index)}
+                    className="hidden"
+                />
+                <div className="border border-gray-300 p-4 rounded-lg cursor-pointer" onClick={() => openFileInput(index)}>
+                    {portfolioFiles[index - 1] ? (
+                        // Display a PDF preview or icon based on the file type
+                        portfolioFiles[index - 1].type === "application/pdf" ? (
+                            <iframe
+                                src={URL.createObjectURL(portfolioFiles[index - 1])}
+                                title={`Portfolio ${index}`}
+                                className="w-24 h-24 object-cover mb-2"
+                                frameBorder="0"
+                                scrolling="auto"
+                            ></iframe>
+                        ) : (
+                            // Display an image preview if an image is uploaded
+                            <img
+                                src={URL.createObjectURL(portfolioFiles[index - 1])}
+                                alt={`Portfolio ${index}`}
+                                className="w-24 h-24 object-cover mb-2"
+                            />
+                        )
+                    ) : (
+                        // Display a placeholder if no file is uploaded
+                        <div className="w-24 h-24 border border-dashed flex items-center justify-center">
+                            <span className="text-gray-400">Upload Preview</span>
+                        </div>
+                    )}
+                </div>
+            </div>
+        ))}
+    </div>
+</div>
+)}    <p className="text-center">
                     <span className="text-xss1 text-deep">
                         Already have an account?
                     </span>
