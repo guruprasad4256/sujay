@@ -17,7 +17,7 @@ export default function SignUp() {
 
         <Layout>
           <main>
-            <section className="py-24 md:py-32 bg-light">
+            <section className=" md: bg-light">
               <RegisterForm />
             </section>
           </main>

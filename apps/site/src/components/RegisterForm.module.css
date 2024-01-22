@@ -277,7 +277,7 @@
 .registrationSection {
   flex: 1;
   padding: 20px;
-  max-width: 1000px; /* Adjust the max-width as needed */
+  max-width: 700px; /* Adjust the max-width as needed */
   margin: 0 auto;
 }
 
@@ -286,6 +286,7 @@
   display: flex;
   height: 100vh;
   overflow: hidden;
+
 }
 
 .autoScrollContainer {
@@ -310,7 +311,10 @@
 .registrationSection {
   flex: 1;
   padding: 20px;
-  background-color: #f0f0f0;
+ 
+}
+.max-w-md {
+  max-width: 33rem;
 }
 .scrollingContent {
   padding: 20px;
@@ -490,3 +494,10 @@
   height: 150px; /* Set the fixed height for each container */
   overflow: hidden; /* Hide overflow content if the file preview is larger */
 }
+.py-24{
+  padding-top: 0rem;
+    padding-bottom: 0rem ;
+}
+/* RegisterForm.module.css */
+
+/* Add any additional styling for other form elements as needed */

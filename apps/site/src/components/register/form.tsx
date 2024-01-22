@@ -494,36 +494,7 @@ const stateLocationData = [
                         {/* ... (remaining code) */}
                     </>
                 )}
-                        {/* ... (remaining code) */}
-                     {/* ... (remaining code) */}
-                
-                     <div className="mb-6">
-                            <input
-                                type="checkbox"
-                                id="agree"
-                                {...register('agree', { required: true })}
-                                className="mr-2"
-                            />
-                            <label htmlFor="agree" className="text-xss1">
-                                I agree to the{' '}
-                                <Link href="/terms">
-                                    <a className="text-themePrimary hover:underline">
-                                        Terms of Service
-                                    </a>
-                                </Link>{' '}
-                                &{' '}
-                                <Link href="/privacy">
-                                    <a className="text-themePrimary hover:underline">
-                                        Privacy Policy
-                                    </a>
-                                </Link>
-                            </label>
-                            {errors?.agree && (
-                                <span className="text-red-600 text-xss italic">
-                                    You must agree to the Terms of Service and Privacy Policy
-                                </span>
-                            )}
-                        </div>
+                 
 
                 {CurrentPage === 2 && (
                     <>
@@ -834,7 +805,7 @@ const stateLocationData = [
 
 {CurrentPage === 4 && (
     <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-4">Upload Images or PDFs</h3>
+        <h3 className="text-lg font-semibold mb-4">Portfolio</h3>
 
         <div className="flex gap-4">
             {/* Container 1 */}
@@ -956,11 +927,25 @@ const stateLocationData = [
                     className="hidden"
                 />
             </div>
+            
         </div>
     </div>
+    
 )}
 
+{CurrentPage === 4 && (
 
+        <div className="mb-6">
+            <label className="block mb-2 text-themeDarker">Portfolio Link</label>
+            <input
+                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50`}
+                type="url"
+                {...register('portfolioLink')}
+                placeholder="Enter Your Portfolio Link (Optional)"
+            />
+        </div>
+   
+)}
 
    <p className="text-center">
                     <span className="text-xss1 text-deep">
