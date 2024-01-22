@@ -37,12 +37,10 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: str
 };
 
 // ... (existing code)
-
-
 const isImage = (file: File | undefined) => {
-    return file?.type.startsWith('image/') ?? false;
-};
-
+    return file?.type?.startsWith('image/') ?? false;
+  };
+  
 
 const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
 
@@ -835,51 +833,134 @@ const stateLocationData = [
 
 
 {CurrentPage === 4 && (
-     <div className="mb-6">
-     <h3 className="text-lg font-semibold mb-4">Upload Images or PDFs</h3>
+    <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-4">Upload Images or PDFs</h3>
 
-     {/* Container 1 */}
-     <div className="mb-4">
-         <label className="block mb-2 text-themeDarker">Container 1:</label>
-         <input
-             type="file"
-             {...register('file1')}
-             onChange={(e) => handleFileChange(e, 'file1')}
-             className="border rounded p-2"
-         />
-         {watch('file1') && (
-             <div className="mt-2">
-                 {isImage(watch('file1')) ? (
-                     <img
-                         src={URL.createObjectURL(watch('file1'))}
-                         alt="Container 1 Preview"
-                         className="max-w-full max-h-40"
-                     />
-                 ) : (
-                     <embed
-                         src={URL.createObjectURL(watch('file1'))}
-                         type="application/pdf"
-                         width="100%"
-                         height="400"
-                     />
-                 )}
-             </div>
-         )}
-     </div>
+        <div className="flex gap-4">
+            {/* Container 1 */}
+            <div className="flex flex-col items-center">
+                <label htmlFor="file1" className="cursor-pointer">
+                    {watch('file1') ? (
+                        <>
+                            {isImage(watch('file1')) ? (
+                                <img
+                                    src={URL.createObjectURL(watch('file1'))}
+                                    alt="Container 1 Preview"
+                                    className="w-32 h-32 cursor-pointer"
+                                />
+                            ) : (
+                                watch('file1').type === 'application/pdf' ? (
+                                    <iframe
+                                        src={URL.createObjectURL(watch('file1'))}
+                                        title="PDF Preview"
+                                        className="border rounded p-2 w-32 h-32 cursor-pointer"
+                                    />
+                                ) : (
+                                    <div className="border rounded p-2 w-32 h-32 cursor-pointer">
+                                        Click to Upload
+                                    </div>
+                                )
+                            )}
+                        </>
+                    ) : (
+                        <div className="border rounded p-2 w-32 h-32 cursor-pointer">
+                            Click to Upload
+                        </div>
+                    )}
+                </label>
+                <input
+                    id="file1"
+                    type="file"
+                    {...register('file1')}
+                    onChange={(e) => handleFileChange(e, 'file1')}
+                    className="hidden"
+                />
+            </div>
 
-     {/* Container 2 */}
-     <div className="mb-4">
-         <label className="block mb-2 text-themeDarker">Container 2:</label>
-         {/* Similar structure for Container 2 */}
-     </div>
+            {/* Container 2 */}
+            <div className="flex flex-col items-center">
+                <label htmlFor="file2" className="cursor-pointer">
+                    {watch('file2') ? (
+                        <>
+                            {isImage(watch('file2')) ? (
+                                <img
+                                    src={URL.createObjectURL(watch('file2'))}
+                                    alt="Container 2 Preview"
+                                    className="w-32 h-32 cursor-pointer"
+                                />
+                            ) : (
+                                watch('file2').type === 'application/pdf' ? (
+                                    <iframe
+                                        src={URL.createObjectURL(watch('file2'))}
+                                        title="PDF Preview"
+                                        className="border rounded p-2 w-32 h-32 cursor-pointer"
+                                    />
+                                ) : (
+                                    <div className="border rounded p-2 w-32 h-32 cursor-pointer">
+                                        Click to Upload
+                                    </div>
+                                )
+                            )}
+                        </>
+                    ) : (
+                        <div className="border rounded p-2 w-32 h-32 cursor-pointer">
+                            Click to Upload
+                        </div>
+                    )}
+                </label>
+                <input
+                    id="file2"
+                    type="file"
+                    {...register('file2')}
+                    onChange={(e) => handleFileChange(e, 'file2')}
+                    className="hidden"
+                />
+            </div>
 
-     {/* Container 3 */}
-     <div>
-         <label className="block mb-2 text-themeDarker">Container 3:</label>
-         {/* Similar structure for Container 3 */}
-     </div>
- </div>
+            {/* Container 3 */}
+            <div className="flex flex-col items-center">
+                <label htmlFor="file3" className="cursor-pointer">
+                    {watch('file3') ? (
+                        <>
+                            {isImage(watch('file3')) ? (
+                                <img
+                                    src={URL.createObjectURL(watch('file3'))}
+                                    alt="Container 3 Preview"
+                                    className="w-32 h-32 cursor-pointer"
+                                />
+                            ) : (
+                                watch('file3').type === 'application/pdf' ? (
+                                    <iframe
+                                        src={URL.createObjectURL(watch('file3'))}
+                                        title="PDF Preview"
+                                        className="border rounded p-2 w-32 h-32 cursor-pointer"
+                                    />
+                                ) : (
+                                    <div className="border rounded p-2 w-32 h-32 cursor-pointer">
+                                        Click to Upload
+                                    </div>
+                                )
+                            )}
+                        </>
+                    ) : (
+                        <div className="border rounded p-2 w-32 h-32 cursor-pointer">
+                            Click to Upload
+                        </div>
+                    )}
+                </label>
+                <input
+                    id="file3"
+                    type="file"
+                    {...register('file3')}
+                    onChange={(e) => handleFileChange(e, 'file3')}
+                    className="hidden"
+                />
+            </div>
+        </div>
+    </div>
 )}
+
+
 
    <p className="text-center">
                     <span className="text-xss1 text-deep">
