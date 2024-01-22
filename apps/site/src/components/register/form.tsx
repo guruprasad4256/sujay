@@ -22,24 +22,34 @@ const RegisterForm = () => {
   
 // ... (existing code)
 
+// ... (existing code)
 const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files && e.target.files[0];
 
     // Update the state to store the selected file
     setPortfolioFiles((prevFiles) => {
-        const newFiles = [...prevFiles];
-        newFiles[index - 1] = file;
+        const newFiles: (File | null)[] = [...prevFiles];
+
+        if (file !== null) {
+            newFiles[index - 1] = file;
+        }
+
         return newFiles;
     });
 };
 
 // ... (existing code)
 
+const openFileInput = (index: number) => {
+    // Trigger click on the hidden file input element
+    const fileInput = document.getElementById(`portfolioFile${index}`) as HTMLInputElement | null;
     
-    const openFileInput = (index) => {
-        // Trigger click on the hidden file input element
-        document.getElementById(`portfolioFile${index}`).click();
-    };
+    if (fileInput) {
+        fileInput.click();
+    }
+};
+
+// ... (existing code)
 
 
 const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
