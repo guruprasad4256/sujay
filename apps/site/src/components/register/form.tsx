@@ -21,6 +21,11 @@ const RegisterForm = () => {
     };
   
 // ... (existing code)
+// ... (existing code)
+
+// ... (existing code)
+
+// ... (existing code)
 
 const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file: File | null | undefined = e.target.files && e.target.files[0];
@@ -29,14 +34,20 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number)
     setPortfolioFiles((prevFiles) => {
         const newFiles = [...prevFiles];
 
-        // Check if file is truthy and not null before assignment
+        // Use non-null assertion if you are confident file is not null
         if (file !== null && file !== undefined) {
-            newFiles[index - 1] = file;
+            newFiles[index - 1] = file as File;
         }
 
         return newFiles;
     });
 };
+
+// ... (existing code)
+
+// ... (existing code)
+
+// ... (existing code)
 
 const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
 
