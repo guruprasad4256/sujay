@@ -20,34 +20,22 @@ const RegisterForm = () => {
         setOtpSent(true);
     };
   
-// ... (existing code)
-// ... (existing code)
+    const handleFileUpload = (e, index) => {
+        const file = e.target.files[0];
+    
+        // Update the state to store the selected file
+        setPortfolioFiles((prevFiles) => {
+            const newFiles = [...prevFiles];
+            newFiles[index - 1] = file;
+            return newFiles;
+        });
+    };
+    
+    const openFileInput = (index) => {
+        // Trigger click on the hidden file input element
+        document.getElementById(`portfolioFile${index}`).click();
+    };
 
-// ... (existing code)
-
-// ... (existing code)
-
-const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file: File | null | undefined = e.target.files && e.target.files[0];
-
-    // Update the state to store the selected file
-    setPortfolioFiles((prevFiles) => {
-        const newFiles = [...prevFiles];
-
-        // Use non-null assertion if you are confident file is not null
-        if (file !== null && file !== undefined) {
-            newFiles[index - 1] = file as File;
-        }
-
-        return newFiles;
-    });
-};
-
-// ... (existing code)
-
-// ... (existing code)
-
-// ... (existing code)
 
 const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
 
