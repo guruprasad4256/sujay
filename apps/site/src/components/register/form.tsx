@@ -20,16 +20,21 @@ const RegisterForm = () => {
         setOtpSent(true);
     };
   
-    const handleFileUpload = (e, index) => {
-        const file = e.target.files[0];
-    
-        // Update the state to store the selected file
-        setPortfolioFiles((prevFiles) => {
-            const newFiles = [...prevFiles];
-            newFiles[index - 1] = file;
-            return newFiles;
-        });
-    };
+// ... (existing code)
+
+const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const file = e.target.files && e.target.files[0];
+
+    // Update the state to store the selected file
+    setPortfolioFiles((prevFiles) => {
+        const newFiles = [...prevFiles];
+        newFiles[index - 1] = file;
+        return newFiles;
+    });
+};
+
+// ... (existing code)
+
     
     const openFileInput = (index) => {
         // Trigger click on the hidden file input element
