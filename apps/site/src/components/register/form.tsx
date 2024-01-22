@@ -6,7 +6,6 @@ import { useToasts } from 'react-toast-notifications';
 import '../RegisterForm.module.css'; 
 import { Axios } from '../utils/axiosKits';
 import { useDropzone } from 'react-dropzone';
-import { useCallback, useState } from 'react';
 
 const RegisterForm = () => {
     const [CurrentPage, setCurrentPage] = React.useState(1);
@@ -21,11 +20,23 @@ const RegisterForm = () => {
         setOtpSent(true);
     };
     
-
+  
 // ... (existing code)
 
 
 // ... (existing code)
+
+// ... (existing code)
+const handleFileChange = (e, fieldName) => {
+    const file = e.target.files[0];
+    if (file) {
+        setValue(fieldName, file);
+    }
+};
+
+const isImage = (file) => {
+    return file.type.startsWith('image/');
+};
 
 
 const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
@@ -86,25 +97,7 @@ const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
     const [previewURLs, setPreviewURLs] = React.useState({});
 
 // File change handler
-const handleFileChange = async (e, boxNumber) => {
-    const file = e.target.files[0];
-    if (file) {
-        const previewURL = await readFileAsDataURL(file);
-        setPreviewURLs((prev) => ({ ...prev, [boxNumber]: previewURL }));
-    }
-};
-
-// Function to read file as Data URL
-const readFileAsDataURL = (file) => {
-    return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            resolve(reader.result);
-        };
-        reader.readAsDataURL(file);
-    });
-};
-    const stateLocationData = [
+const stateLocationData = [
         {
             "S. No.": 1,
             "DISTRICT": "ANDAMAN_NICOBAR_IS",
@@ -837,59 +830,53 @@ const readFileAsDataURL = (file) => {
 
 
 {CurrentPage === 4 && (
- <div className="mb-6">
- <div className="mb-4">
-     <h3 className="text-lg font-semibold mb-2">Portfolio</h3>
-     <p className="text-themeDark text-sm">
-         You can upload images and PDFs to showcase your work.
-     </p>
- </div>
+     <div className="mb-6">
+     <h3 className="text-lg font-semibold mb-4">Upload Images or PDFs</h3>
 
- <div className="flex gap-4">
-     {[1, 2, 3].map((index) => (
-         <div key={index} className="relative">
-             <label
-                 htmlFor={`portfolio-upload-${index}`}
-                 className="cursor-pointer block overflow-hidden bg-gray-100 border rounded-md p-4"
-             >
-                 <span className="block text-center">Click to Upload</span>
-             </label>
-             <input
-                 type="file"
-                 id={`portfolio-upload-${index}`}
-                 {...register(`portfolioFiles[${index}]`)}
-                 className="hidden"
-             />
-             {/* Display preview if a file is uploaded */}
-             {watch(`portfolioFiles[${index}]`) && (
-                 <div className="mt-2">
-                     {watch(`portfolioFiles[${index}]`).name}
-                     {/* Add logic to display preview based on file type (image or PDF) */}
-                     {/* For simplicity, you can use an <img> tag for images and a link for PDFs */}
-                     {watch(`portfolioFiles[${index}]`).type.includes('image') ? (
-                         <img
-                             src={URL.createObjectURL(watch(`portfolioFiles[${index}]`))}
-                             alt={`Preview ${index}`}
-                             className="max-w-full h-auto"
-                         />
-                     ) : (
-                         <a
-                             href={URL.createObjectURL(watch(`portfolioFiles[${index}]`))}
-                             target="_blank"
-                             rel="noopener noreferrer"
-                         >
-                             Preview PDF
-                         </a>
-                     )}
-                 </div>
-             )}
-         </div>
-     ))}
+     {/* Container 1 */}
+     <div className="mb-4">
+         <label className="block mb-2 text-themeDarker">Container 1:</label>
+         <input
+             type="file"
+             {...register('file1')}
+             onChange={(e) => handleFileChange(e, 'file1')}
+             className="border rounded p-2"
+         />
+         {watch('file1') && (
+             <div className="mt-2">
+                 {isImage(watch('file1')) ? (
+                     <img
+                         src={URL.createObjectURL(watch('file1'))}
+                         alt="Container 1 Preview"
+                         className="max-w-full max-h-40"
+                     />
+                 ) : (
+                     <embed
+                         src={URL.createObjectURL(watch('file1'))}
+                         type="application/pdf"
+                         width="100%"
+                         height="400"
+                     />
+                 )}
+             </div>
+         )}
+     </div>
+
+     {/* Container 2 */}
+     <div className="mb-4">
+         <label className="block mb-2 text-themeDarker">Container 2:</label>
+         {/* Similar structure for Container 2 */}
+     </div>
+
+     {/* Container 3 */}
+     <div>
+         <label className="block mb-2 text-themeDarker">Container 3:</label>
+         {/* Similar structure for Container 3 */}
+     </div>
  </div>
-</div>
 )}
 
-<p className="text-center">
+   <p className="text-center">
                     <span className="text-xss1 text-deep">
                         Already have an account?
                     </span>
