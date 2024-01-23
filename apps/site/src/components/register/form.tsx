@@ -949,7 +949,7 @@ const stateLocationData = [
 )}
 {CurrentPage === 5 && (
     <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-4">Employment Information</h3>
+       
 
         {/* Are You Currently Employed? */}
         <div className="mb-4 flex items-center">
@@ -1092,6 +1092,7 @@ const stateLocationData = [
                 )}
             </div>
         </div>
+        
     </div>
 </div>
 
@@ -1297,8 +1298,39 @@ const stateLocationData = [
 {/* Additional Fields if Worked Before */}
 {watch('workedBefore') === 'Yes' && (
     <div className="mb-6 flex items-center flex-wrap">
-        {/* Section 1: Total Work Experience */}
+        {/* Section 0: Prev Department and Prev Job Title */}
         <div className="flex items-center space-x-4">
+            {/* Prev Department */}
+            <div className="flex items-center space-x-4">
+                <label htmlFor="prevDepartment" className="block mb-2 text-themeDarker">
+                    Prev Department
+                </label>
+                <input
+                    id="prevDepartment"
+                    type="text"
+                    {...register('prevDepartment')}
+                    className="appearance-none block w-40 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                    placeholder="Enter Prev Department"
+                />
+            </div>
+
+            {/* Prev Job Title */}
+            <div className="flex items-center space-x-4">
+                <label htmlFor="prevJobTitle" className="block mb-2 text-themeDarker">
+                    Prev Job Title
+                </label>
+                <input
+                    id="prevJobTitle"
+                    type="text"
+                    {...register('prevJobTitle')}
+                    className="appearance-none block w-40 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                    placeholder="Enter Prev Job Title"
+                />
+            </div>
+        </div>
+
+        {/* Section 1: Total Work Experience */}
+        <div className="flex items-center space-x-4 mt-4">
             <label className="block mb-2 text-themeDarker">
                 Total Work Experience
             </label>
@@ -1362,8 +1394,127 @@ const stateLocationData = [
                 />
             </div>
         </div>
+
+        {/* Section 3: Industry Type */}
+        <div className="flex items-center space-x-4 mt-4">
+            <label htmlFor="industryType" className="block mb-2 text-themeDarker">
+                Industry Type
+            </label>
+            <select
+                id="industryType"
+                {...register('industryType')}
+                className="appearance-none block w-28 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+            >
+                <option value="Type 1">Type 1</option>
+                <option value="Type 2">Type 2</option>
+                <option value="Type 3">Type 3</option>
+                <option value="Type 4">Type 4</option>
+                <option value="Custom">Custom</option>
+            </select>
+
+            {/* LDCTC */}
+            <div className="flex items-center space-x-4">
+                <label htmlFor="ldctc" className="block mb-2 text-themeDarker">
+                    LDCTC
+                </label>
+                <input
+                    id="ldctc"
+                    type="text"
+                    {...register('ldctc')}
+                    className="appearance-none block w-20 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                    placeholder="Enter LDCTC"
+                />
+            </div>
+
+            {/* Custom Industry Type */}
+            {watch('industryType') === 'Custom' && (
+                <div className="flex items-center space-x-4">
+                    <label htmlFor="customIndustryType" className="block mb-2 text-themeDarker">
+                        Custom Industry Type
+                    </label>
+                    <input
+                        id="customIndustryType"
+                        type="text"
+                        {...register('customIndustryType')}
+                        className="appearance-none block w-40 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                        placeholder="Enter Custom Industry Type"
+                    />
+                </div>
+            )}
+        </div>
+        <div className="flex gap-6 mt-4">
+            <div className="w-1/2">
+                <label htmlFor="state" className={`block mb-2 text-themeDarker ${errors?.state ? 'text-red-600' : ''}`}>
+                    State
+                </label>
+                <select
+                    id="state"
+                    {...register('state', { required: true })}
+                    className={`appearance-none block w-full p-3 leading-5 text-coolGray-900 border ${errors?.state ? 'border-red-500' : 'border-gray'} rounded-lg focus:outline-none focus:ring-2 ${errors?.state ? 'ring-red-500' : 'focus:ring-themePrimary focus:ring-opacity-50'}`}
+                    onChange={(e) => setSelectedState(e.target.value)}
+                >
+                    <option value="" disabled selected>
+                        Select State
+                    </option>
+                    {stateLocationData.map((item) => (
+                        <option
+                            key={item["S. No."]}
+                            value={item.STATE}
+                        >
+                            {item.STATE}
+                        </option>
+                    ))}
+                </select>
+                {errors?.state && (
+                    <span className="text-red-600 text-xss italic">
+                        State is required
+                    </span>
+                )}
+            </div>
+            <div className="w-1/2">
+                <label htmlFor="location" className={`block mb-2 text-themeDarker ${errors?.location ? 'text-red-600' : ''}`}>
+                    Location
+                </label>
+                <select
+                    id="location"
+                    {...register('location', { required: true })}
+                    className={`appearance-none block w-full p-3 leading-5 text-coolGray-900 border ${errors?.location ? 'border-red-500' : 'border-gray'} rounded-lg focus:outline-none focus:ring-2 ${errors?.location ? 'ring-red-500' : 'focus:ring-themePrimary focus:ring-opacity-50'}`}
+                >
+                    <option value="" disabled selected>
+                        Select Location
+                    </option>
+                    {availableLocations.map((location) => (
+                        <option key={location} value={location}>
+                            {location}
+                        </option>
+                    ))}
+                </select>
+                {errors?.location && (
+                    <span className="text-red-600 text-xss italic">
+                        Location is required
+                    </span>
+                )}
+            </div>
+        </div>
+        {/* Section 4: Reason For Change */}
+        <div className="flex items-center space-x-4 mt-4">
+            <label htmlFor="reasonForChange" className="block mb-2 text-themeDarker">
+                Reason For Change
+            </label>
+            <textarea
+                id="reasonForChange"
+                {...register('reasonForChange')}
+                className="resize-none appearance-none block w-40 p-3 leading-5 text-coolGray-900 border rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-themePrimary focus:ring-opacity-50"
+                placeholder="Enter Reason For Change"
+            />
+        </div>
+
+        {/* Section 5: State and Location */}
+       
     </div>
 )}
+
+
 {/* Section 6: Relevant Experience (if 'No' is selected for 'Have you worked before?') */}
 {watch('workedBefore') === 'No' && (
     <div className="mb-6 flex items-center">
