@@ -14,7 +14,7 @@ export interface UserDocument extends mongoose.Document {
   package: PackageDocument['_id']
   resetLink: string
   avatar: string
-  phoneNumber: string  // Added phoneNumber field
+  phoneNumber: string
   cloudinary_id: string
   role: {
     isCandidate: boolean
