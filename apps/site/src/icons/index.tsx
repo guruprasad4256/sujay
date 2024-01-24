@@ -1,15 +1,21 @@
 import React, { HTMLAttributes } from 'react';
 
-export const Logo = ({ dark, ...props }: HTMLAttributes<SVGElement> & { dark?: boolean }) => {
+export const Logo = ({
+  dark,
+  onCopy, // Add onCopy to the props
+  ...props
+}: HTMLAttributes<HTMLImageElement> & { dark?: boolean; onCopy?: React.ClipboardEventHandler<HTMLImageElement> }) => {
   return (
     <img
-      src="./kyamme.png"  // Replace "./kyamme.png" with the correct path to your PNG file
+      src="./kyamme.png"
       alt="Kyamme Logo"
-      style={{ width: '170px', height: '45px' }}  // Set the desired width and height using inline styles
+      style={{ width: '170px', height: '45px' }}
+      onCopy={onCopy} // Pass onCopy to the img element
       {...props}
     />
   );
 };
+
 
 
 // ** Location Icon **
