@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useForm } from 'react-hook-form';
 import { FaCamera } from 'react-icons/fa';
 import { useToasts } from 'react-toast-notifications';
@@ -6,6 +6,7 @@ import { useSWRConfig } from 'swr';
 import { FormLoader, LoaderGrowing } from '../../lib/loader';
 import Image from '../../optimize/image';
 import { authAxios } from '../../utils/axiosKits';
+import React, { useState } from 'react';
 
 const ProfileBox = ({ data }: { data: any }) => {
     const [photoImage, setPhotoImage] = React.useState(null) as any;
@@ -24,8 +25,12 @@ const ProfileBox = ({ data }: { data: any }) => {
             lastName: data.fullName.lastName,
             email: data.email,
             aboutMe: data.aboutMe,
+            phoneNumber: data.phoneNumber,
+         
         },
     }) as any;
+    const selectedWorkStatus = watch('workStatus');
+   
 
     const {
         register: register2,
@@ -43,8 +48,17 @@ const ProfileBox = ({ data }: { data: any }) => {
     React.useEffect(() => {
         if (data) {
             setPhotoImage(data.avatar);
+            reset({
+                firstName: data.fullName.firstName,
+                lastName: data.fullName.lastName,
+                email: data.email,
+                aboutMe: data.aboutMe,
+                phoneNumber: data.phoneNumber, 
+                
+                
+            });
         }
-    }, [data]);
+    }, [data, reset]);
 
     // [x] Profile update handler
     const onSubmit = async (data: any) => {
@@ -293,6 +307,46 @@ const ProfileBox = ({ data }: { data: any }) => {
                                                 </span>
                                             )}
                                         </div>
+                                        <div className="mb-6">
+              <label className="block mb-2 text-themeDarker">
+                Work Status
+              </label>
+              <select
+                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
+                  errors?.workStatus
+                    ? '!border-red-500'
+                    : 'border-gray'
+                } rounded-lg focus:outline-none focus:ring-2 ${
+                  errors?.workStatus
+                    ? 'ring-red-500'
+                    : 'focus:ring-themePrimary focus:ring-opacity-50'
+                }`}
+                {...register('workStatus', { required: true })}
+              >
+                <option value="" disabled>
+                  Select Work Status
+                </option>
+                <option value="fresher">I Am Fresher</option>
+                <option value="experienced">I Am Experienced</option>
+              </select>
+              {errors?.workStatus && (
+                <span className="text-red-600 text-xss italic">
+                  Work Status is required
+                </span>
+              )}
+            </div>
+            {selectedWorkStatus === 'fresher' && (
+              <div>
+                {/* Fresher-specific questions */}
+                {/* ... (add your fresher-specific fields) */}
+              </div>
+            )}
+             {selectedWorkStatus === 'experienced' && (
+              <div>
+                {/* Experienced-specific questions */}
+                {/* ... (add your experienced-specific fields) */}
+              </div>
+            )}
                                         <div className="w-full md:w-3/6 px-3 md:py-2">
                                             <label
                                                 className="block tracking-wide text-themeDark text-xxs mb-2 mt-3"
@@ -301,12 +355,12 @@ const ProfileBox = ({ data }: { data: any }) => {
                                                 Phone
                                             </label>
                                             <input
-                                                className="appearance-none block w-full text-themeDark border border-gray rounded py-2.5 px-3 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                                id="grid-first-name"
-                                                {...register('phoneNumber')}
-                                                type="text"
-                                                placeholder="(406) 555-0120"
-                                                defaultValue={data.phoneNumber}
+                                               className="appearance-none block w-full text-themeDark border border-gray rounded py-2.5 px-3 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                               id="grid-first-name"
+                                               {...register('phoneNumber')}
+                                               type="number"
+                                               placeholder="(406) 555-0120"
+                                               value={watch('phoneNumber')} 
                                             />
                                         </div>
                                     </div>
@@ -315,6 +369,7 @@ const ProfileBox = ({ data }: { data: any }) => {
                             </div>
                         </div>
                     </div>
+                    
                     {/* button 1 */}
                     <div className="mx-10 mt-3">
                         <p className="themeDark text-xxs">About Me</p>

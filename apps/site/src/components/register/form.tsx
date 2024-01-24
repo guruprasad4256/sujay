@@ -485,15 +485,17 @@ const RegisterForm = () => {
                     </>
                 )}
                  
-                        <div className="flex gap-4">
-                        <button
-                                type="submit"
-                                disabled={loading}
-                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                            >
-                                {loading ? 'Please wait...' : 'Next Step'}
-                            </button>
-                        </div>
+                 <div className="flex gap-4">
+    {CurrentPage === 1 && (
+        <button
+            type="submit"
+            disabled={loading}
+            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+        >
+            {loading ? 'Please wait...' : 'Next Step'}
+        </button>
+    )}
+</div>
              
                 {CurrentPage === 2 && (
                     <>

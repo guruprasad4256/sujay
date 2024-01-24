@@ -33,6 +33,7 @@ import {
   updateUser,
   updatePassword,
   updateUserPackage,
+  
 } from './controller/user.controller'
 import { getDashboardStat } from './service/user.service'
 
@@ -135,6 +136,7 @@ export const apiProvider = {
   requireUser,
   requireCandidate,
   requireEmployer,
+  
 
 
   createEmail,
