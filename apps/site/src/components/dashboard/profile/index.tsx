@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useForm } from 'react-hook-form';
 import { FaCamera } from 'react-icons/fa';
 import { useToasts } from 'react-toast-notifications';
@@ -6,6 +6,7 @@ import { useSWRConfig } from 'swr';
 import { FormLoader, LoaderGrowing } from '../../lib/loader';
 import Image from '../../optimize/image';
 import { authAxios } from '../../utils/axiosKits';
+import React, { useState } from 'react';
 
 const ProfileBox = ({ data }: { data: any }) => {
     const [photoImage, setPhotoImage] = React.useState(null) as any;
@@ -24,8 +25,12 @@ const ProfileBox = ({ data }: { data: any }) => {
             lastName: data.fullName.lastName,
             email: data.email,
             aboutMe: data.aboutMe,
+            phoneNumber: data.phoneNumber,
+         
         },
     }) as any;
+    const selectedWorkStatus = watch('workStatus');
+   
 
     const {
         register: register2,
@@ -43,8 +48,17 @@ const ProfileBox = ({ data }: { data: any }) => {
     React.useEffect(() => {
         if (data) {
             setPhotoImage(data.avatar);
+            reset({
+                firstName: data.fullName.firstName,
+                lastName: data.fullName.lastName,
+                email: data.email,
+                aboutMe: data.aboutMe,
+                phoneNumber: data.phoneNumber, 
+                
+                
+            });
         }
-    }, [data]);
+    }, [data, reset]);
 
     // [x] Profile update handler
     const onSubmit = async (data: any) => {
@@ -301,12 +315,12 @@ const ProfileBox = ({ data }: { data: any }) => {
                                                 Phone
                                             </label>
                                             <input
-                                                className="appearance-none block w-full text-themeDark border border-gray rounded py-2.5 px-3 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                                id="grid-first-name"
-                                                {...register('phoneNumber')}
-                                                type="text"
-                                                placeholder="(406) 555-0120"
-                                                defaultValue={data.phoneNumber}
+                                               className="appearance-none block w-full text-themeDark border border-gray rounded py-2.5 px-3 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                               id="grid-first-name"
+                                               {...register('phoneNumber')}
+                                               type="number"
+                                               placeholder="(406) 555-0120"
+                                               value={watch('phoneNumber')} 
                                             />
                                         </div>
                                     </div>
@@ -315,6 +329,7 @@ const ProfileBox = ({ data }: { data: any }) => {
                             </div>
                         </div>
                     </div>
+                    
                     {/* button 1 */}
                     <div className="mx-10 mt-3">
                         <p className="themeDark text-xxs">About Me</p>

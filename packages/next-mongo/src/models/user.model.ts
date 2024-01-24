@@ -14,6 +14,7 @@ export interface UserDocument extends mongoose.Document {
   package: PackageDocument['_id']
   resetLink: string
   avatar: string
+  phoneNumber: string  // Added phoneNumber field
   cloudinary_id: string
   role: {
     isCandidate: boolean
@@ -51,6 +52,9 @@ export const userSchema = new mongoose.Schema(
     },
     isConfirmed: {
       type: Boolean,
+    },
+    phoneNumber: {
+      type: String, // Assuming phoneNumber is a string
     },
     package: {
       type: mongoose.Schema.Types.ObjectId,
