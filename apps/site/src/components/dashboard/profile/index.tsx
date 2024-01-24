@@ -307,46 +307,8 @@ const ProfileBox = ({ data }: { data: any }) => {
                                                 </span>
                                             )}
                                         </div>
-                                        <div className="mb-6">
-              <label className="block mb-2 text-themeDarker">
-                Work Status
-              </label>
-              <select
-                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
-                  errors?.workStatus
-                    ? '!border-red-500'
-                    : 'border-gray'
-                } rounded-lg focus:outline-none focus:ring-2 ${
-                  errors?.workStatus
-                    ? 'ring-red-500'
-                    : 'focus:ring-themePrimary focus:ring-opacity-50'
-                }`}
-                {...register('workStatus', { required: true })}
-              >
-                <option value="" disabled>
-                  Select Work Status
-                </option>
-                <option value="fresher">I Am Fresher</option>
-                <option value="experienced">I Am Experienced</option>
-              </select>
-              {errors?.workStatus && (
-                <span className="text-red-600 text-xss italic">
-                  Work Status is required
-                </span>
-              )}
-            </div>
-            {selectedWorkStatus === 'fresher' && (
-              <div>
-                {/* Fresher-specific questions */}
-                {/* ... (add your fresher-specific fields) */}
-              </div>
-            )}
-             {selectedWorkStatus === 'experienced' && (
-              <div>
-                {/* Experienced-specific questions */}
-                {/* ... (add your experienced-specific fields) */}
-              </div>
-            )}
+             
+       
                                         <div className="w-full md:w-3/6 px-3 md:py-2">
                                             <label
                                                 className="block tracking-wide text-themeDark text-xxs mb-2 mt-3"
