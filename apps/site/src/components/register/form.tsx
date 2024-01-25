@@ -108,6 +108,17 @@ const [portfolioFiles, setPortfolioFiles] = React.useState([null, null, null]);
         }
     };
 
+ 
+    const validateStep1 = () => {
+        // Implement validation logic for step 1
+        // For example, check if first_name, last_name, gender, and email are filled
+        return (
+            watch('first_name') &&
+            watch('last_name') &&
+            watch('gender') &&
+            watch('email')
+        );
+    };
 
     const {
         register,
@@ -223,13 +234,16 @@ const stateLocationData = [
     };
 
     /* ------------------------- previous page function ------------------------- */
-    const previousHandler = () => {
-        // Ensure CurrentPage is within valid range (1 to 6)
-        setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+  
+    
+    const nextHandler = () => {
+        // Update the current page to move to the next section
+        setCurrentPage(CurrentPage + 1);
     };
-    
-    
-
+    const previousHandler = () => {
+        // Update the current page to move to the previous section
+        setCurrentPage(CurrentPage - 1);
+    };
     return (
         <div className="max-w-md mx-auto shadow px-8 py-10 rounded-lg bg-white">
             <div className="mb-6 text-center">
@@ -516,97 +530,21 @@ const stateLocationData = [
                                 </div>
                             </div>
                         </div>
-                        {/* ... (remaining code) */}
+                        <div className="flex gap-2">
+                 
+                         <button
+                            type="button"
+                            onClick={nextHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Next Step
+                        </button>
+                    </div>
                     </>
                 )}
                  
 
-                {CurrentPage === 2 && (
-                    <>
-                        <div className="mb-6">
-                            <label
-                                className="block mb-2 text-themeDarker"
-                                htmlFor="phone_number"
-                            >
-                                Phone Number
-                            </label>
-                            <input
-                                className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
-                                    errors?.phone_number
-                                        ? '!border-red-500'
-                                        : 'border-gray'
-                                } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
-                                    errors?.phone_number
-                                        ? 'focus:ring-red-500'
-                                        : 'focus:ring-themePrimary'
-                                } focus:ring-opacity-50`}
-                                type="tel"
-                                {...register('phone_number', {
-                                    required: true,
-                                    pattern: /^\d{10}$/ // Adjust the pattern for your phone number format
-                                })}
-                                placeholder="Enter Your Phone Number"
-                                value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
-                            />
-                            {errors?.phone_number && (
-                                <span className="text-red-600 text-xss italic">
-                                    Please enter a valid phone number
-                                </span>
-                            )}
-                        </div>
-                        {!otpSent ? (
-                            <button
-                                type="button"
-                                onClick={sendOtpHandler}
-                                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                            >
-                                Send OTP
-                            </button>
-                        ) : (
-                            <>
-                                <div className="mb-6">
-                                    <label
-                                        className="block mb-2 text-themeDarker"
-                                        htmlFor="otp"
-                                    >
-                                        OTP
-                                    </label>
-                                    <input
-                                        className={`appearance-none block w-full !p-3 leading-5 text-coolGray-900 border ${
-                                            errors?.otp
-                                                ? '!border-red-500'
-                                                : 'border-gray'
-                                        } rounded-lg placeholder-coolGray-400 focus:outline-none focus:ring-2 ${
-                                            errors?.otp
-                                                ? 'focus:ring-red-500'
-                                                : 'focus:ring-themePrimary'
-                                        } focus:ring-opacity-50`}
-                                        type="text"
-                                        {...register('otp', {
-                                            required: true,
-                                            pattern: /^\d{4}$/ // Adjust the pattern for your OTP format
-                                        })}
-                                        placeholder="Enter OTP"
-                                    />
-                                    {errors?.otp && (
-                                        <span className="text-red-600 text-xss italic">
-                                            Please enter a valid OTP
-                                        </span>
-                                    )}
-                                </div>
-                                <button
-                                    type="button"
-                                    onClick={() => verifyOtpHandler(watch('otp'))}
-                                    className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                                >
-                                    Verify OTP
-                                </button>
-                            </>
-                        )}
-                    </>
-                )}
-
+             
 
 {CurrentPage === 2 && (
                     <>
@@ -691,11 +629,27 @@ const stateLocationData = [
                                 </button>
                             </>
                         )}
+                          <div className="flex gap-2">
+                        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
+                        <button
+                            type="button"
+                            onClick={nextHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Next Step
+                        </button>
+                    </div>
                     </>
                 )}
 
 
-{CurrentPage === 4 && (
+{CurrentPage === 3 && (
     <div className="mb-6">
         <div className="flex justify-between mb-4">
             <div>
@@ -745,7 +699,7 @@ const stateLocationData = [
 )}
 
 
-{CurrentPage === 4 && (
+{CurrentPage === 3 && (
     <div className="mb-6">
         <div className="flex justify-between mb-4">
             <div className="flex gap-4">
@@ -776,7 +730,7 @@ const stateLocationData = [
 
 
 
-{CurrentPage === 4 && (
+{CurrentPage === 3 && (
     <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Portfolio</h3>
 
@@ -907,7 +861,7 @@ const stateLocationData = [
 )}
 
 
-{CurrentPage === 4 && (
+{CurrentPage === 3 && (
     <div className="mb-6">
       
         <div className="mb-6">
