@@ -117,6 +117,9 @@ importers:
       react-toast-notifications:
         specifier: ^2.5.1
         version: 2.5.1(react-dom@18.2.0)(react@18.2.0)
+      react-toastify:
+        specifier: ^10.0.4
+        version: 10.0.4(react-dom@18.2.0)(react@18.2.0)
       slick-carousel:
         specifier: ^1.8.1
         version: 1.8.1(jquery@3.7.1)
@@ -3248,6 +3251,11 @@ packages:
       proxy-agent: 5.0.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /clsx@2.1.0:
+    resolution: {integrity: sha512-m3iNNWpd9rl3jvvcBnu70ylMdrXt8Vlq4HYadnU5fwcOtvkSQWPmj7amUcDT2qYI7risszBjI5AUIUox9D16pg==, tarball: https://registry.npmjs.org/clsx/-/clsx-2.1.0.tgz}
+    engines: {node: '>=6'}
     dev: false
 
   /collection-visit@1.0.0:
@@ -7071,6 +7079,17 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
+  /react-toastify@10.0.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-etR3RgueY8pe88SA67wLm8rJmL1h+CLqUGHuAoNsseW35oTGJEri6eBTyaXnFKNQ80v/eO10hBYLgz036XRGgA==, tarball: https://registry.npmjs.org/react-toastify/-/react-toastify-10.0.4.tgz}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      clsx: 2.1.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):

@@ -41,6 +41,7 @@
     "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
     "react-toast-notifications": "^2.5.1",
+    "react-toastify": "^10.0.4",
     "slick-carousel": "^1.8.1",
     "sweetalert": "^2.1.2",
     "swr": "^1.1.2"
