@@ -207,7 +207,7 @@ const stateLocationData = [
                                 appearance: 'success',
                                 autoDismiss: true,
                             });
-                            Router.push('/login');
+                            router.push('/login');
                             setTimeout(() => {
                                 setCurrentPage(1);
                                 reset();
