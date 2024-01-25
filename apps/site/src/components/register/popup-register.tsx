@@ -157,7 +157,7 @@ const stateLocationData = [
 
         setAvailableLocations(filteredLocations);
     }, [selectedState]);
-
+    const totalSections = 6; 
     /* ----------------------------- register submit function ---------------------------- */
     const onSubmitHandler = async (data: any) => {
         
@@ -228,11 +228,31 @@ const stateLocationData = [
     };
 
     /* ------------------------- previous page function ------------------------- */
-    const previousHandler = () => {
-        // Ensure CurrentPage is within valid range (1 to 6)
-        setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+    const nextHandler = () => {
+        // Assuming you have a total number of sections (totalSections) defined
+        if (CurrentPage < totalSections) {
+            setCurrentPage(CurrentPage + 1);
+        } else {
+            // Handle the case when you're already on the last section
+            console.error('Error: Already on the last section.');
+        }
     };
-    
+  
+    const previousHandler = () => {
+        // If you are on the last section (CurrentPage 6), go back to the relevant section
+        if (CurrentPage === 6) {
+            // Check the value of 'workedBefore' to determine the appropriate previous section
+            if (watch('workedBefore') === 'Yes') {
+                setCurrentPage(5); // Go back to Section 5
+            } else {
+                setCurrentPage(4); // Go back to Section 4 or adjust as needed
+            }
+        } else if (CurrentPage > 1) {
+            // If you are on any section other than the first, go back one step
+            setCurrentPage(CurrentPage - 1);
+        }
+        // If you are already on the first section, do nothing
+    };
     
 
 
@@ -552,11 +572,23 @@ const stateLocationData = [
                                 </div>
                             </div>
                         </div>
-                        {/* ... (remaining code) */}
+                        <div className="flex gap-2">
+                 
+                         <button
+                            type="button"
+                            onClick={nextHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Next Step
+                        </button>
+                    </div>
                     </>
                 )}
                  
-                 {CurrentPage === 2 && (
+
+             
+
+{CurrentPage === 2 && (
                     <>
                         <div className="mb-6">
                             <label
@@ -639,9 +671,25 @@ const stateLocationData = [
                                 </button>
                             </>
                         )}
+                          <div className="flex gap-2">
+                        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
+                        <button
+                            type="button"
+                            onClick={nextHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Next Step
+                        </button>
+                    </div>
                     </>
                 )}
-                {CurrentPage === 3 && (
+       {CurrentPage === 3 && (
                     
                     <div className="mb-6">
     <h3 className="text-lg font-semibold mb-4">
@@ -715,33 +763,7 @@ const stateLocationData = [
 </div>
                )}
 
-              {CurrentPage === 1 && (
-            <div className="flex gap-4">
-                <button
-                    onClick={() => setCurrentPage(2)}
-                    className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                >
-                    Next Step
-                </button>
-            </div>
-        )}
-
-        {CurrentPage === 2 && (
-            <div className="flex gap-4">
-                <button
-                    onClick={() => setCurrentPage(3)}
-                    className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                >
-                    Next Step
-                </button>
-                <button
-                    onClick={previousHandler}
-                    className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-                >
-                    Previous
-                </button>
-            </div>
-        )}
+        
 
         {CurrentPage === 3 && (
             
@@ -989,12 +1011,13 @@ const stateLocationData = [
 
         {/* Back and Next Step Buttons */}
         <div className="flex gap-4">
-            <button
-                onClick={() => setCurrentPage(3)}
-                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-            >
-                Back
-            </button>
+        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
             <button
                 onClick={() => setCurrentPage(5)}
                 className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
@@ -1795,12 +1818,13 @@ const stateLocationData = [
         
         {/* Back and Next Step Buttons */}
         <div className="flex gap-2">
-            <button
-                onClick={() => setCurrentPage(4)}
-                className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
-            >
-                Back
-            </button>
+        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
             <button
                 onClick={() => setCurrentPage(6)}
                 className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
@@ -1918,12 +1942,13 @@ const stateLocationData = [
 
    {/* Back and Next Step Buttons */}
    <div className="flex gap-2">
-                    <button
-                        onClick={() => setCurrentPage(4)}
-                        className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
-                    >
-                        Back
-                    </button>
+   <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
                     <button
                         onClick={() => setCurrentPage(6)}
                         className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
@@ -2132,12 +2157,13 @@ const stateLocationData = [
         
         {/* Back and Next Step Buttons */}
         <div className="flex gap-2">
-            <button
-                onClick={() => setCurrentPage(4)}
-                className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
-            >
-                Back
-            </button>
+        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
             <button
                 onClick={() => setCurrentPage(6)}
                 className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
@@ -2147,7 +2173,7 @@ const stateLocationData = [
         </div>
     </div>
 )}
-{CurrentPage === 6 && (
+{CurrentPage ===6 && (
     
     <div>
         {/* Section 7: Additional Fields */}
@@ -2342,7 +2368,6 @@ const stateLocationData = [
         </div>
   
 )}
-
                     </form>
                     <p className="text-center">
                         <span className="text-xss1 text-deep">

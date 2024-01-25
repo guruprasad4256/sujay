@@ -152,7 +152,8 @@ const stateLocationData = [
     ];
 
     const [selectedState, setSelectedState] = React.useState('');
-    
+   
+  const totalSections = 6; 
     const [availableLocations, setAvailableLocations] = React.useState<string[]>([]);
 
     React.useEffect(() => {
@@ -235,15 +236,32 @@ const stateLocationData = [
 
     /* ------------------------- previous page function ------------------------- */
   
-    
     const nextHandler = () => {
-        // Update the current page to move to the next section
-        setCurrentPage(CurrentPage + 1);
+        // Assuming you have a total number of sections (totalSections) defined
+        if (CurrentPage < totalSections) {
+            setCurrentPage(CurrentPage + 1);
+        } else {
+            // Handle the case when you're already on the last section
+            console.error('Error: Already on the last section.');
+        }
     };
+  
     const previousHandler = () => {
-        // Update the current page to move to the previous section
-        setCurrentPage(CurrentPage - 1);
+        // If you are on the last section (CurrentPage 6), go back to the relevant section
+        if (CurrentPage === 6) {
+            // Check the value of 'workedBefore' to determine the appropriate previous section
+            if (watch('workedBefore') === 'Yes') {
+                setCurrentPage(5); // Go back to Section 5
+            } else {
+                setCurrentPage(4); // Go back to Section 4 or adjust as needed
+            }
+        } else if (CurrentPage > 1) {
+            // If you are on any section other than the first, go back one step
+            setCurrentPage(CurrentPage - 1);
+        }
+        // If you are already on the first section, do nothing
     };
+    
     return (
         <div className="max-w-md mx-auto shadow px-8 py-10 rounded-lg bg-white">
             <div className="mb-6 text-center">
@@ -647,9 +665,102 @@ const stateLocationData = [
                     </div>
                     </>
                 )}
+       {CurrentPage === 3 && (
+                    
+                    <div className="mb-6">
+    <h3 className="text-lg font-semibold mb-4">
+        What Kind of Designing Are You Looking For?
+    </h3>
+    <div className="flex flex-col gap-2">
+        <input
+            type="radio"
+            id="gd"
+            value="GD"
+            {...register('designType')}
+            className="hidden"
+        />
+        <label
+            htmlFor="gd"
+            className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                watch('designType') === 'GD' ? 'bg-themePrimary text-white' : ''
+            }`}
+        >
+            GD
+        </label>
 
+        <input
+            type="radio"
+            id="3d"
+            value="3D"
+            {...register('designType')}
+            className="hidden"
+        />
+        <label
+            htmlFor="3d"
+            className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                watch('designType') === '3D' ? 'bg-themePrimary text-white' : ''
+            }`}
+        >
+            3D
+        </label>
 
-{CurrentPage === 3 && (
+        <input
+            type="radio"
+            id="illustrator"
+            value="Illustrator"
+            {...register('designType')}
+            className="hidden"
+        />
+        <label
+            htmlFor="illustrator"
+            className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                watch('designType') === 'Illustrator' ? 'bg-themePrimary text-white' : ''
+            }`}
+        >
+            Illustrator
+        </label>
+
+        <input
+            type="radio"
+            id="ui"
+            value="UI"
+            {...register('designType')}
+            className="hidden"
+        />
+        <label
+            htmlFor="ui"
+            className={`bg-themePrimary/20 text-themeDark hover:bg-themePrimary/30 duration-300 ease-in-out hover:text-themePrimary px-3 py-2.5 text-center cursor-pointer rounded ${
+                watch('designType') === 'UI' ? 'bg-themePrimary text-white' : ''
+            }`}
+        >
+            UI
+        </label>
+    </div>
+</div>
+               )}
+
+        
+
+        {CurrentPage === 3 && (
+            
+           <div className="flex gap-4">
+           <button
+               onClick={() => setCurrentPage(4)} // Step 3: Update to navigate to section 4
+               className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+           >
+               Next Step
+           </button>
+           <button
+               onClick={previousHandler}
+               className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+           >
+               Previous
+           </button>
+       </div>
+  
+)}
+
+{CurrentPage === 4 && (
     <div className="mb-6">
         <div className="flex justify-between mb-4">
             <div>
@@ -699,7 +810,7 @@ const stateLocationData = [
 )}
 
 
-{CurrentPage === 3 && (
+{CurrentPage === 4 && (
     <div className="mb-6">
         <div className="flex justify-between mb-4">
             <div className="flex gap-4">
@@ -730,7 +841,7 @@ const stateLocationData = [
 
 
 
-{CurrentPage === 3 && (
+{CurrentPage === 4 && (
     <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">Portfolio</h3>
 
@@ -861,7 +972,7 @@ const stateLocationData = [
 )}
 
 
-{CurrentPage === 3 && (
+{CurrentPage === 4 && (
     <div className="mb-6">
       
         <div className="mb-6">
@@ -876,12 +987,13 @@ const stateLocationData = [
 
         {/* Back and Next Step Buttons */}
         <div className="flex gap-4">
-            <button
-                onClick={() => setCurrentPage(3)}
-                className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
-            >
-                Back
-            </button>
+        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
             <button
                 onClick={() => setCurrentPage(5)}
                 className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
@@ -1682,12 +1794,13 @@ const stateLocationData = [
         
         {/* Back and Next Step Buttons */}
         <div className="flex gap-2">
-            <button
-                onClick={() => setCurrentPage(4)}
-                className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
-            >
-                Back
-            </button>
+        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
             <button
                 onClick={() => setCurrentPage(6)}
                 className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
@@ -1805,12 +1918,13 @@ const stateLocationData = [
 
    {/* Back and Next Step Buttons */}
    <div className="flex gap-2">
-                    <button
-                        onClick={() => setCurrentPage(4)}
-                        className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
-                    >
-                        Back
-                    </button>
+   <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
                     <button
                         onClick={() => setCurrentPage(6)}
                         className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
@@ -2019,12 +2133,13 @@ const stateLocationData = [
         
         {/* Back and Next Step Buttons */}
         <div className="flex gap-2">
-            <button
-                onClick={() => setCurrentPage(4)}
-                className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
-            >
-                Back
-            </button>
+        <button
+                            type="button"
+                            onClick={previousHandler}
+                            className="inline-block !py-3 px-7 mb-6 w-full duration-300 ease-in-out text-base text-white font-normal text-center leading-6 bg-themePrimary rounded-md hover:bg-black"
+                        >
+                            Previous
+                        </button>
             <button
                 onClick={() => setCurrentPage(6)}
                 className="inline-block !py-2 px-4 mb-4 w-full duration-300 ease-in-out text-xs text-white font-normal text-center leading-5 bg-themePrimary rounded-md hover:bg-black"
@@ -2034,7 +2149,7 @@ const stateLocationData = [
         </div>
     </div>
 )}
-{CurrentPage === 6 && (
+{CurrentPage ===6 && (
     
     <div>
         {/* Section 7: Additional Fields */}
