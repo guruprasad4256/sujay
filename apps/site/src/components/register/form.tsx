@@ -175,6 +175,7 @@ const {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors, isValid },
 } = useForm({ mode: 'onChange' });
 
