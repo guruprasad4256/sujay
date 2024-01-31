@@ -13,20 +13,23 @@ import { useState, useEffect } from 'react';
 
 
 
-const RegisterForm = () => {
-    const [CurrentPage, setCurrentPage] = React.useState(1);
-    const [loading, setLoading] = React.useState(false);
+const RegisterForm: React.FC = () => {
+    const [CurrentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false);
     const { addToast } = useToasts();
-    const [otpSent, setOtpSent] = React.useState(false);
-  
+    const [otpSent, setOtpSent] = useState(false);
+
     const loadingRef = useRef(false);
     const currentPageRef = useRef(1);
     const router = useRouter();
-    const handleFileChange = (e, fieldName) => {
-        const file = e.target.files[0];
-        setValue(fieldName, file);
-    };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
+        const file = e.target.files && e.target.files[0];
+        // Ensure that file is not undefined before using it
+        if (file) {
+            setValue(fieldName, file);
+        }
+    };
 
    
     const isStep5Complete = () => {
