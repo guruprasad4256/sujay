@@ -242,7 +242,11 @@ const stateLocationData = [
                                 firstName: data.first_name,
                                 lastName: data.last_name,
                             },
+
+                            gender:data.gender,
                             email: data.email,
+                         
+
                             isConfirmed: false,
                             password: data.password,
                             role: {

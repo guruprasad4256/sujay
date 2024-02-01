@@ -135,20 +135,31 @@ export async function getUser(accessToken: any) {
 }
 
 // update UserHandler
+// Inside your user.controller.ts or wherever you have your controllers
+
+// ... (existing imports)
+
+// update UserHandler
 export async function updateUser(reqQuery: any, imageData: any) {
   try {
-    const userInfo = (await requireUser(reqQuery.accessToken)) as any
-    const userId = userInfo._id
+    const userInfo = (await requireUser(reqQuery.accessToken)) as any;
+    const userId = userInfo._id;
     const userInput = {
       ...reqQuery.userData,
-    }
+      favoriteHero: reqQuery.favoriteHero,
 
-    const user = await updateUserService(userId, userInput, imageData)
-    return user
+      aboutMe: reqQuery.aboutMe,
+      gender:reqQuery.gender,  // Add the aboutMe field
+    };
+
+    const user = await updateUserService(userId, userInput, imageData);
+    return user;
   } catch (e) {
-    throw e
+    throw e;
   }
 }
+
+
 
 // forget password email Handler
 export async function forgetPassword(reqQuery: any) {
@@ -332,3 +343,4 @@ export async function updateUserPackage(reqQuery: any) {
     throw e
   }
 }
+
