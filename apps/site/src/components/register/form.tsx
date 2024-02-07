@@ -12,7 +12,7 @@ import { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Chunked from './Chunked';
-import PortfolioSection from './Chunked'; // Import the PortfolioSection component
+// Import the PortfolioSection component
 
 const CLOUD_NAME = "dpgc90lr3";
 const UPLOAD_PRESET = "b7qldb5l";
