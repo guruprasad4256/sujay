@@ -13,8 +13,6 @@ import PopupLogin from "../src/components/register/popup-login";
 import PopupRegister from "../src/components/register/popup-register";
 import LostPassword from "../src/components/register/lost-password";
 import theme_config from "../theme_config";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -23,15 +21,7 @@ export default function MyApp({ Component, pageProps }) {
     pageTitle.charAt(0).toUpperCase() + pageTitle.slice(1).replace(/-/g, " ");
 
   const { site_name } = theme_config;
-  function MyApp({ Component, pageProps }) {
-    return (
-      <>
-        <Component {...pageProps} />
-        <ToastContainer />
-      </>
-    );
-  }
-  
+
   return (
     <ToastProvider>
       <ThemeContext>
@@ -49,4 +39,3 @@ export default function MyApp({ Component, pageProps }) {
     </ToastProvider>
   );
 }
-

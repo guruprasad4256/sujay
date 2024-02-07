@@ -25,8 +25,7 @@ const ProfileBox = ({ data }: { data: any }) => {
             lastName: data.fullName.lastName,
             email: data.email,
             aboutMe: data.aboutMe,
-            phone_number: data.phone_number,
-            
+            phoneNumber: data.phoneNumber,
          
         },
     }) as any;
@@ -54,7 +53,7 @@ const ProfileBox = ({ data }: { data: any }) => {
                 lastName: data.fullName.lastName,
                 email: data.email,
                 aboutMe: data.aboutMe,
-                phone_number: data.phone_number,
+                phoneNumber: data.phoneNumber, 
                 
                 
             });
@@ -318,10 +317,10 @@ const ProfileBox = ({ data }: { data: any }) => {
                                             <input
                                                className="appearance-none block w-full text-themeDark border border-gray rounded py-2.5 px-3 mb-3 leading-tight focus:outline-none focus:bg-white"
                                                id="grid-first-name"
-                                               {...register(' phone_number')}
+                                               {...register('phoneNumber')}
                                                type="number"
                                                placeholder="(406) 555-0120"
-                                               value={watch('phone_number')} 
+                                               value={watch('phoneNumber')} 
                                             />
                                         </div>
                                     </div>

@@ -7,9 +7,6 @@ import { requireUser } from '../middleware/authenticate'
 import { countApplications } from './jobApply.service'
 
 // External Import
-// import crypto from 'crypto'
-// import connectDB from '../utils/connect'
-// const bcrypt = require('bcrypt')
 import _ from 'lodash'
 import { countPubishedCompany } from './company.service'
 import { findBookmarks } from './bookmark.service'
@@ -21,19 +18,24 @@ import { signJwt } from '../utils/jwt.utils'
 // create user service
 export async function createUserService(input: any) {
   try {
-    const { password } = input
-    const hash = await hashPassword(password)
+    const { password, favoriteHero, petName, aboutMe } = input;
+    const hash = await hashPassword(password);
 
     const inputData = {
       ...input,
       password: hash,
-    }
-    const user = await UserModel.create(inputData)
-    return user
+      favoriteHero,
+      petName,   // Add the petName field
+      aboutMe,   // Add the aboutMe field
+    };
+    const user = await UserModel.create(inputData);
+    return user;
   } catch (e) {
-    throw e
+    throw e;
   }
 }
+
+
 
 // user login service
 export async function loginUserService(input: any) {
@@ -218,38 +220,38 @@ export async function getUserWithPackage(userId: FilterQuery<UserDocument>) {
 // update user service
 export async function updateUserService(
   userId: any,
-  update: any,
+  update: { favoriteHero?: string, gender?: string, aboutMe?: string },
   imageData: any
 ) {
   try {
-    let userUpdate = null
+    let userUpdate = null;
     if (imageData) {
-      const userPreviousData = (await UserModel.findById(userId)) as any
+      const userPreviousData = (await UserModel.findById(userId)) as any;
 
       if (userPreviousData?.cloudinary_id) {
-        await cloudinary.uploader.destroy(userPreviousData.cloudinary_id)
+        await cloudinary.uploader.destroy(userPreviousData.cloudinary_id);
       }
       // Upload image to cloudinary
-      const result = await cloudinary.uploader.upload(imageData)
+      const result = await cloudinary.uploader.upload(imageData);
       const imageInput = {
         avatar: result.secure_url,
         cloudinary_id: result.public_id,
-      }
+      };
       userUpdate = {
         ...update,
         ...imageInput,
-      }
+      };
     } else {
       userUpdate = {
         ...update,
-      }
+      };
     }
     const user = await UserModel.findByIdAndUpdate(userId, userUpdate, {
       new: true,
-    })
-    return user
+    });
+    return user;
   } catch (e: any) {
-    throw e
+    throw e;
   }
 }
 

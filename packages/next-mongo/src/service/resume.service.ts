@@ -164,26 +164,26 @@ export async function resumeStatusUpdateService(query: any) {
           resume.status.isApproved = true
           resume.save()
 
-          // let emails
-          // emails = await findEmailByEmailType('RESUME_APPROVED')
-          // if (emails.length === 0) {
-          //   const templateInput = {
-          //     senderAddress: 'Meta-Jobs',
-          //     subject: 'Your Resume is Approved',
-          //     message: 'Congrats..!! Your Resume is Approved',
-          //     emailType: 'RESUME_APPROVED',
-          //   }
-          //   await createEmail(templateInput)
-          //   emails = await findEmailByEmailType('RESUME_APPROVED')
-          // }
-          // const emailData = emails[0]
+           let emails
+          emails = await findEmailByEmailType('RESUME_APPROVED')
+          if (emails.length === 0) {
+            const templateInput = {
+           senderAddress: 'Meta-Jobs',
+           subject: 'Your Resume is Approved',
+           message: 'Congrats..!! Your Resume is Approved',
+         emailType: 'RESUME_APPROVED',
+            }
+            await createEmail(templateInput)
+            emails = await findEmailByEmailType('RESUME_APPROVED')
+          }
+           const emailData = emails[0]
 
-          // const approvalInput = {
-          //   userEmail: resume.user.email,
-          //   emailData,
-          //   userId,
-          //   emailType: 'RESUME_APPROVED',
-          // }
+           const approvalInput = {
+             userEmail: resume.user.email,
+            emailData,
+           userId,
+           emailType: 'RESUME_APPROVED',
+           }
 
           // await sendNotificationEmail(approvalInput)
           return 'Resume approved successfully'
@@ -247,55 +247,55 @@ export async function resumeStatusUpdateService(query: any) {
           resume.status.isActive = true
           resume.save()
 
-          // let activatedJobResult
-          // activatedJobResult = await findEmailByEmailType('RESUME_ACTIVATED')
-          // if (activatedJobResult.length === 0) {
-          //   const templateInput = {
-          //     senderAddress: 'Meta-Jobs',
-          //     subject: 'Your Resume is Activated',
-          //     message: 'Congrats..!! Your Resume is Activated',
-          //     emailType: 'RESUME_ACTIVATED',
-          //   }
-          //   await createEmail(templateInput)
-          //   activatedJobResult = await findEmailByEmailType('RESUME_ACTIVATED')
-          // }
-          // const activatedResumeData = activatedJobResult[0]
+          let activatedJobResult
+          activatedJobResult = await findEmailByEmailType('RESUME_ACTIVATED')
+          if (activatedJobResult.length === 0) {
+            const templateInput = {
+              senderAddress: 'Meta-Jobs',
+              subject: 'Your Resume is Activated',
+              message: 'Congrats..!! Your Resume is Activated',
+              emailType: 'RESUME_ACTIVATED',
+            }
+            await createEmail(templateInput)
+            activatedJobResult = await findEmailByEmailType('RESUME_ACTIVATED')
+          }
+          const activatedResumeData = activatedJobResult[0]
 
-          // const activatedInput = {
-          //   userEmail: resume.user.email,
-          //   emailData: activatedResumeData,
-          //   userId,
-          //   emailType: 'RESUME_ACTIVATED',
-          // }
+          const activatedInput = {
+            userEmail: resume.user.email,
+            emailData: activatedResumeData,
+            userId,
+            emailType: 'RESUME_ACTIVATED',
+          }
 
-          // await sendNotificationEmail(activatedInput)
+          await sendNotificationEmail(activatedInput)
 
           return 'Resume activated successfully'
         case 'draft':
           resume.status.isPublished = false
           resume.save()
 
-          // let draftResumeResult
-          // draftResumeResult = await findEmailByEmailType('RESUME_DRAFTED')
-          // if (draftResumeResult.length === 0) {
-          //   const templateInput = {
-          //     senderAddress: 'Meta-Jobs',
-          //     subject: 'Your Resume is in Draft',
-          //     message: 'Congrats..!! Your Resume is in Draft',
-          //     emailType: 'RESUME_DRAFTED',
-          //   }
-          //   await createEmail(templateInput)
-          //   draftResumeResult = await findEmailByEmailType('RESUME_DRAFTED')
-          // }
-          // const draftResumeData = draftResumeResult[0]
+          let draftResumeResult
+          draftResumeResult = await findEmailByEmailType('RESUME_DRAFTED')
+          if (draftResumeResult.length === 0) {
+            const templateInput = {
+              senderAddress: 'Meta-Jobs',
+              subject: 'Your Resume is in Draft',
+              message: 'Congrats..!! Your Resume is in Draft',
+              emailType: 'RESUME_DRAFTED',
+            }
+            await createEmail(templateInput)
+            draftResumeResult = await findEmailByEmailType('RESUME_DRAFTED')
+          }
+          const draftResumeData = draftResumeResult[0]
 
-          // const draftInput = {
-          //   userEmail: resume.user.email,
-          //   emailData: draftResumeData,
-          //   userId,
-          //   emailType: 'RESUME_DRAFTED',
-          // }
-          // await sendNotificationEmail(draftInput)
+          const draftInput = {
+            userEmail: resume.user.email,
+            emailData: draftResumeData,
+            userId,
+            emailType: 'RESUME_DRAFTED',
+          }
+          await sendNotificationEmail(draftInput)
 
           return 'Resume draft successfully'
         case 'published':

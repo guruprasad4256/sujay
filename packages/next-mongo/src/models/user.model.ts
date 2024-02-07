@@ -22,38 +22,13 @@ export interface UserDocument extends mongoose.Document {
   phoneNumber: string 
   favoriteHero?: string;
   gender:string;
-  state: string, // Include the selected state
-  location: string, // Include the selected location
-  designType:string,
-  selectedTools: String,
-  
-  portfolioLink?: string;
-
-selectedSkills: String,
-
-certificationName: String,
-
-institutionName: String,
-
-
+  petName?: string;
   cloudinary_id: string
   role: {
     isCandidate: boolean
     isEmployer: boolean
     isAdmin: boolean
   }
-  file1: {
-    filename: string;
-    url: string;
-  };
-  file2: {
-    filename: string;
-    url: string;
-  };
-  file3: {
-    filename: string;
-    url: string;
-  };
   createdAt: Date
   updatedAt: Date
   comparePassword(candidatePassword: string): Promise<boolean>
@@ -107,19 +82,10 @@ export const userSchema = new mongoose.Schema(
       type: String,
     },
     
-    file1: {
-      filename: String,
-      url: String,
-    },
-    file2: {
-      filename: String,
-      url: String,
-    },
-    file3: {
-      filename: String,
-      url: String,
-    },
-
+ 
+  petName: {
+    type: String,
+},
   gender:{
     type:String,
   },  
@@ -142,7 +108,7 @@ export const userSchema = new mongoose.Schema(
 )
 
 const updateUserSchema = new mongoose.Schema({
-  phone_number: {
+ phoneNumber: {
     type: String,
    },
  aboutMe: {
@@ -150,47 +116,6 @@ const updateUserSchema = new mongoose.Schema({
   },
  gender: {
     type: String,
-    
-},
-state: {
-  type: String,
-  
-},
-location: {
-  type: String,
-  
-},
-designType: {
-  type: String,
-  
-},
-selectedTools: {
-  type: String,
-},
-selectedSkills: {
-type: String,
-},
-certificationName: {
-type: String,
-},
-institutionName: {
-type: String,
-},
-
-portfolioLink: {
-  type: String,
-},
-file1: {
-  filename: String,
-  url: String,
-},
-file2: {
-  filename: String,
-  url: String,
-},
-file3: {
-  filename: String,
-  url: String,
 },
 })
  userSchema.pre('save', async function (next) {
@@ -208,15 +133,15 @@ file3: {
   user.password = hash
  })
 
- userSchema.methods.comparePassword = async function (
-  candidatePassword: string
-): Promise<boolean> {
-  const user = this as UserDocument;
-  const isMatch = await bcrypt
+userSchema.methods.comparePassword = async function (
+   candidatePassword: string
+ ): Promise<Boolean> {
+  const user = this as UserDocument
+     const isMatch = await bcrypt
     .compare(candidatePassword, user.password)
-    .catch((e: Error) => false); // Specify the type of 'e' parameter as Error
-  return isMatch;
-};
+    .catch((e) => false)
+  return isMatch
+}
 
  const userUpdatedSchema = userSchema.add(updateUserSchema)
  
