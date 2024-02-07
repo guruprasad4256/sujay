@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 // eslint-disable-line
 
-import { PackageDocument } from './package.model'
 export interface UserDocument extends mongoose.Document {
   // ... (existing fields)
   favoriteHero?: string;
