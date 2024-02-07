@@ -15,7 +15,7 @@ export interface UserDocument extends mongoose.Document {
   email: string
   password: string
   isConfirmed: boolean
-  package: PackageDocument['_id']
+  
   resetLink: string
   avatar: string
   phoneNumber: string 
