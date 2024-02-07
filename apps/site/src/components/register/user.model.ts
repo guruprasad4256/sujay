@@ -26,7 +26,9 @@ export interface UserDocument extends mongoose.Document {
   location: string, // Include the selected location
   designType:string,
   selectedTools: String,
-  
+  file1?: string;
+  file2?: string;
+  file3?: string;
   portfolioLink?: string;
 
 selectedSkills: String,
@@ -42,18 +44,6 @@ institutionName: String,
     isEmployer: boolean
     isAdmin: boolean
   }
-  file1: {
-    filename: string;
-    url: string;
-  };
-  file2: {
-    filename: string;
-    url: string;
-  };
-  file3: {
-    filename: string;
-    url: string;
-  };
   createdAt: Date
   updatedAt: Date
   comparePassword(candidatePassword: string): Promise<boolean>
@@ -107,18 +97,7 @@ export const userSchema = new mongoose.Schema(
       type: String,
     },
     
-    file1: {
-      filename: String,
-      url: String,
-    },
-    file2: {
-      filename: String,
-      url: String,
-    },
-    file3: {
-      filename: String,
-      url: String,
-    },
+ 
 
   gender:{
     type:String,
@@ -176,22 +155,19 @@ type: String,
 institutionName: {
 type: String,
 },
-
+file1: {
+  type: String,
+},
+file2: {
+  type: String,
+},
+file3: {
+  type: String,
+},
 portfolioLink: {
   type: String,
 },
-file1: {
-  filename: String,
-  url: String,
-},
-file2: {
-  filename: String,
-  url: String,
-},
-file3: {
-  filename: String,
-  url: String,
-},
+
 })
  userSchema.pre('save', async function (next) {
    let user = this as UserDocument

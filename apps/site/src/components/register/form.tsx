@@ -10,18 +10,24 @@ import { Axios } from '../utils/axiosKits';
 import { useDropzone } from 'react-dropzone';
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Chunked from './Chunked';
+import PortfolioSection from './Chunked'; // Import the PortfolioSection component
 
-
-
+const CLOUD_NAME = "dpgc90lr3";
+const UPLOAD_PRESET = "b7qldb5l";
 const RegisterForm: React.FC = () => {
+  
+
     const [CurrentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const { addToast } = useToasts();
     const [otpSent, setOtpSent] = useState(false);
-
+   
     const loadingRef = useRef(false);
     const currentPageRef = useRef(1);
     const router = useRouter();
+ 
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
         const file = e.target.files && e.target.files[0];
@@ -31,7 +37,7 @@ const RegisterForm: React.FC = () => {
         }
     };
 
-   
+  
     const isStep5Complete = () => {
         return (
             watch('currentlyEmployed') &&
@@ -179,6 +185,7 @@ const {
     formState: { errors, isValid },
 } = useForm({ mode: 'onChange' });
 
+
 const [previewURLs, setPreviewURLs] = React.useState({});
 const relevantExperience = watch('relevantExperience');
 console.log('Relevant Experience:', relevantExperience);
@@ -226,6 +233,7 @@ const stateLocationData = [
         }
         if (CurrentPage === 6) {
             setLoading(true);
+            
             if (data.password !== data.confirm_password) {
                 addToast('Password and Confirm Password does not match', {
                     appearance: 'error',
@@ -234,36 +242,38 @@ const stateLocationData = [
                 setLoading(false);
             } else if (data.password === data.confirm_password) {
                 try {
+                    const formDataToSend = {
+                        fullName: {
+                            firstName: data.first_name,
+                            lastName: data.last_name,
+                        },
+                        gender: data.gender,
+                        email: data.email,
+                        state: data.state,
+                        location: data.location,
+                        phone_number: data.phone_number,
+                        designType: data.designType,
+                        selectedTools: data.selectedTools,
+                        selectedSkills: data.selectedSkills,
+                        certificationName: data.certificationName,
+                        institutionName: data.institutionName,
+                        portfolioLink: data.portfolioLink,
+                        isConfirmed: false,
+                        password: data.password,
+                        role: {
+                            isCandidate: data.freelancer_role === 'candidate',
+                            isEmployer: data.freelancer_role === 'employer',
+                            isAdmin: data.freelancer_role === 'admin',
+                        },
+                        file1: data.file1, // Include file1 Cloudinary URL
+                        file2: data.file2, // Include file2 Cloudinary URL
+                        file3: data.file3, // Include file3 Cloudinary URL
+                    };
+                
                     await Axios({
                         method: 'post',
                         url: `/users/signup`,
-                        data: {
-                            fullName: {
-                                firstName: data.first_name,
-                                lastName: data.last_name,
-                            },
-
-                            gender:data.gender,
-                            email: data.email,
-                         
-
-                            isConfirmed: false,
-                            password: data.password,
-                            role: {
-                                isCandidate:
-                                    data.freelancer_role === 'candidate'
-                                        ? true
-                                        : false,
-                                isEmployer:
-                                    data.freelancer_role === 'employer'
-                                        ? true
-                                        : false,
-                                isAdmin:
-                                    data.freelancer_role === 'admin'
-                                        ? true
-                                        : false,
-                            },
-                        },
+                        data: formDataToSend,
                     }).then((res) => {
                         setLoading(false);
                         if (res.status === 200 || res.status === 201) {
@@ -278,14 +288,12 @@ const stateLocationData = [
                             }, 3000);
                         }
                     });
-                    
                 } catch (error: any) {
                     setLoading(false);
                     addToast(error.response.data.message, {
                         appearance: 'error',
                         autoDismiss: true,
                     });
-                    
                 }
             }
         }
@@ -397,6 +405,7 @@ const isDesignTypeSelected = () => {
                                 </span>
                             )}
                         </div>
+                        
                         <div className="flex gap-6 mt-6">
                                 <div className="w-6/12">
                                     <label className="block mb-2 text-themeDarker text-sm">
@@ -552,7 +561,7 @@ const isDesignTypeSelected = () => {
                                         })}
                                     >
                                         <option value="" disabled selected>
-                                            Select Location
+                                            Select city
                                         </option>
                                         {availableLocations.map((location) => (
                                             <option key={location} value={location}>
@@ -562,7 +571,7 @@ const isDesignTypeSelected = () => {
                                     </select>
                                     {errors?.location && (
                                         <span className="text-red-600 text-xss italic">
-                                            Location is required
+                                            city is required
                                         </span>
                                     )}
                                 </div>
@@ -913,120 +922,16 @@ const isDesignTypeSelected = () => {
 
 {CurrentPage === 4 && (
     <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-4">Portfolio</h3>
+ 
 
         <div className="flex gap-4">
             {/* Container 1 */}
-            <div className="flex flex-col items-center">
-                <label htmlFor="file1" className="cursor-pointer">
-                    {watch('file1') ? (
-                        <>
-                            {isImage(watch('file1')) ? (
-                                <img
-                                    src={URL.createObjectURL(watch('file1'))}
-                                    alt="Container 1 Preview"
-                                    className="w-32 h-32 cursor-pointer"
-                                />
-                            ) : (
-                                watch('file1').type === 'application/pdf' ? (
-                                    <iframe
-                                        src={URL.createObjectURL(watch('file1'))}
-                                        title="PDF Preview"
-                                        className="border rounded p-2 w-32 h-32 cursor-pointer"
-                                    />
-                                ) : (
-                                    <div className="border rounded p-2 w-32 h-32 cursor-pointer">
-                                        Click to Upload
-                                    </div>
-                                )
-                            )}
-                        </>
-                    ) : (
-                        <div className="border rounded p-2 w-32 h-32 cursor-pointer">
-                            Click to Upload
-                        </div>
-                    )}
-                </label>
-                <input
-                    id="file1"
-                    type="file"
-                    {...register('file1')}
-                    onChange={(e) => handleFileChange(e, 'file1')}
-                    className="hidden"
-                />
-            </div>
-
-            {/* Container 2 */}
-            <div className="flex flex-col items-center">
-                <label htmlFor="file2" className="cursor-pointer">
-                    {watch('file2') ? (
-                        <>
-                            {isImage(watch('file2')) ? (
-                                <img
-                                    src={URL.createObjectURL(watch('file2'))}
-                                    alt="Container 2 Preview"
-                                    className="w-32 h-32 cursor-pointer"
-                                />
-                            ) : (
-                                watch('file2').type === 'application/pdf' ? (
-                                    <iframe
-                                        src={URL.createObjectURL(watch('file2'))}
-                                        title="PDF Preview"
-                                        className="border rounded p-2 w-32 h-32 cursor-pointer"
-                                    />
-                                ) : (
-                                    <div className="border rounded p-2 w-32 h-32 cursor-pointer">
-                                        Click to Upload
-                                    </div>
-                                )
-                            )}
-                        </>
-                    ) : (
-                        <div className="border rounded p-2 w-32 h-32 cursor-pointer">
-                            Click to Upload
-                        </div>
-                    )}
-                </label>
-                <input
-                    id="file2"
-                    type="file"
-                    {...register('file2')}
-                    onChange={(e) => handleFileChange(e, 'file2')}
-                    className="hidden"
-                />
-            </div>
+            
+          
 
             {/* Container 3 */}
             <div className="flex flex-col items-center">
-                <label htmlFor="file3" className="cursor-pointer">
-                    {watch('file3') ? (
-                        <>
-                            {isImage(watch('file3')) ? (
-                                <img
-                                    src={URL.createObjectURL(watch('file3'))}
-                                    alt="Container 3 Preview"
-                                    className="w-32 h-32 cursor-pointer"
-                                />
-                            ) : (
-                                watch('file3').type === 'application/pdf' ? (
-                                    <iframe
-                                        src={URL.createObjectURL(watch('file3'))}
-                                        title="PDF Preview"
-                                        className="border rounded p-2 w-32 h-32 cursor-pointer"
-                                    />
-                                ) : (
-                                    <div className="border rounded p-2 w-32 h-32 cursor-pointer">
-                                        Click to Upload
-                                    </div>
-                                )
-                            )}
-                        </>
-                    ) : (
-                        <div className="border rounded p-2 w-32 h-32 cursor-pointer">
-                            Click to Upload
-                        </div>
-                    )}
-                </label>
+            <Chunked />
                 <input
                     id="file3"
                     type="file"
