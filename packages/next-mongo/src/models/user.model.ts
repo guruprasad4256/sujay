@@ -133,15 +133,15 @@ const updateUserSchema = new mongoose.Schema({
   user.password = hash
  })
 
-userSchema.methods.comparePassword = async function (
-   candidatePassword: string
- ): Promise<Boolean> {
-  const user = this as UserDocument
-     const isMatch = await bcrypt
+ userSchema.methods.comparePassword = async function (
+  candidatePassword: string
+): Promise<boolean> {
+  const user = this as UserDocument;
+  const isMatch = await bcrypt
     .compare(candidatePassword, user.password)
-    .catch((e) => false)
-  return isMatch
-}
+    .catch((e: Error) => false); // Explicitly specify the type of e as Error
+  return isMatch;
+};
 
  const userUpdatedSchema = userSchema.add(updateUserSchema)
  
